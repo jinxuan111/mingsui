@@ -1,0 +1,752 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gold: #d4af37;
+    --primary-dark: #0f0f1e;
+    --primary-purple: #4a235a;
+    --accent-blue: #2d5a7b;
+    --light-text: #e8dcc8;
+    --secondary-text: #b8a890;
+    --success: #7cb342;
+    --warning: #f57c00;
+    --danger: #d32f2f;
+    
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Serif SC', serif;
+    background-color: var(--primary-dark);
+    color: var(--light-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ========== 宇宙背景动画 ========== */
+.cosmic-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: linear-gradient(135deg, #0f0f1e 0%, #1a0f2e 50%, #0f0f1e 100%);
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.stars::before,
+.stars::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 
+        100px 100px white, 
+        200px 50px rgba(255,255,255,0.8),
+        300px 200px rgba(255,255,255,0.6),
+        400px 150px rgba(255,255,255,0.7),
+        500px 300px rgba(255,255,255,0.5),
+        600px 100px rgba(255,255,255,0.9),
+        700px 250px rgba(255,255,255,0.6),
+        800px 200px rgba(255,255,255,0.7),
+        900px 50px rgba(255,255,255,0.8),
+        1000px 300px rgba(255,255,255,0.5);
+    animation: twinkle 3s infinite;
+}
+
+.stars::after {
+    animation: twinkle 4s infinite 1s;
+    animation-direction: reverse;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.planets {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
+    border-radius: 50%;
+    top: 10%;
+    right: 5%;
+    filter: blur(40px);
+    animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(20px); }
+}
+
+/* ========== 容器和通用 ========== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.card {
+    background: linear-gradient(135deg, rgba(74, 35, 90, 0.3) 0%, rgba(45, 90, 123, 0.2) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 头部 ========== */
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 40px 20px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.logo-container {
+    animation: slideDown 0.8s ease-out;
+}
+
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary-gold);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.header-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    animation: slideUp 1s ease-out 0.3s both;
+}
+
+.decoration-line {
+    display: block;
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+}
+
+.decoration-symbol {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 输入表单 ========== */
+.input-section {
+    margin-bottom: 40px;
+}
+
+.input-card {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary-gold);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--secondary-text);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    color: var(--primary-gold);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-input,
+.form-input option {
+    background: rgba(15, 15, 30, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--light-text);
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.form-input option {
+    background: var(--primary-dark);
+}
+
+.input-hint {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+}
+
+.radio-group {
+    display: flex;
+    gap: 30px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--light-text);
+    transition: var(--transition);
+}
+
+.radio-label input[type="radio"] {
+    accent-color: var(--primary-gold);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.radio-label:hover {
+    color: var(--primary-gold);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-gold) 0%, #c49c1e 100%);
+    color: var(--primary-dark);
+    border: none;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    background: linear-gradient(135deg, #e5c158 0%, #d4af37 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* ========== 结果部分 ========== */
+.results-section {
+    margin-bottom: 40px;
+    animation: slideUp 0.8s ease-out;
+}
+
+.results-section.hidden {
+    display: none;
+}
+
+.results-card {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.result-item {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(45, 90, 123, 0.05) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    transition: var(--transition);
+}
+
+.result-item:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+}
+
+.result-title {
+    color: var(--primary-gold);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* ========== 信息展示 ========== */
+.info-content p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.label {
+    color: var(--primary-gold);
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* ========== 五行元素 ========== */
+.element-display {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.element-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.element-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.element-item-row:last-child {
+    border-bottom: none;
+}
+
+.element-name {
+    color: var(--primary-gold);
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.element-value {
+    color: var(--light-text);
+}
+
+/* ========== 天干地支 ========== */
+.stems-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stems-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.stem-box {
+    background: rgba(15, 15, 30, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stem-box:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(15, 15, 30, 0.7);
+}
+
+.stem-label {
+    font-size: 0.75rem;
+    color: var(--secondary-text);
+    margin-bottom: 5px;
+}
+
+.stem-value {
+    font-size: 1.1rem;
+    color: var(--primary-gold);
+    font-weight: 600;
+}
+
+/* ========== 评分和进度条 ========== */
+.score-display {
+    display: flex;
+    justify-content: center;
+}
+
+.score-gauge {
+    text-align: center;
+    flex: 1;
+}
+
+.gauge-label {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.gauge-value {
+    display: block;
+    font-size: 2rem;
+    color: var(--primary-gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.gauge-bar {
+    height: 8px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.gauge-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-gold), #f4d03f);
+    border-radius: 4px;
+    animation: fillGauge 1s ease-out;
+}
+
+@keyframes fillGauge {
+    from { width: 0; }
+    to { width: var(--width, 50%); }
+}
+
+/* ========== 财运分析 ========== */
+.fortune-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.fortune-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.fortune-label {
+    color: var(--secondary-text);
+}
+
+.fortune-value {
+    color: var(--primary-gold);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.fortune-bar {
+    height: 6px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7cb342, var(--primary-gold));
+    border-radius: 3px;
+    animation: fillGauge 1.2s ease-out;
+}
+
+.fortune-text {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    line-height: 1.5;
+    padding: 10px;
+    background: rgba(15, 15, 30, 0.3);
+    border-left: 3px solid var(--primary-gold);
+    margin-top: 10px;
+}
+
+/* ========== 五行运势对比 ========== */
+.element-fortune {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.element-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.element-name-bar {
+    min-width: 50px;
+    color: var(--primary-gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.element-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.element-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    animation: fillGauge 1s ease-out;
+}
+
+/* ========== 建议 ========== */
+.advice-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.advice-item {
+    padding: 10px;
+    background: rgba(15, 15, 30, 0.3);
+    border-left: 3px solid var(--primary-gold);
+    border-radius: 3px;
+}
+
+.advice-item strong {
+    color: var(--primary-gold);
+}
+
+/* ========== 详细分析 ========== */
+.analysis-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+.analysis-paragraph {
+    line-height: 1.6;
+    color: var(--light-text);
+}
+
+/* ========== 信息卡片 ========== */
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-card {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 0.95rem;
+}
+
+.info-text p {
+    line-height: 1.6;
+}
+
+.info-text h3 {
+    color: var(--primary-gold);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.info-text ul {
+    list-style-position: inside;
+    margin-left: 10px;
+}
+
+.info-text li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* ========== 页脚 ========== */
+.footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--secondary-text);
+    margin-top: 60px;
+}
+
+.footer p {
+    margin-bottom: 5px;
+}
+
+.footer-note {
+    font-size: 0.85rem;
+    margin-top: 10px;
+    color: #8a7860;
+}
+
+/* ========== 重置按钮 ========== */
+.results-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.reset-btn {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+.reset-btn:hover {
+    background: var(--primary-gold);
+    color: var(--primary-dark);
+}
+
+/* ========== 响应式设计 ========== */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stems-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header {
+        padding: 25px 10px;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .form {
+        gap: 15px;
+    }
+
+    .result-item {
+        padding: 15px;
+    }
+
+    .decoration-line {
+        width: 60px;
+    }
+}

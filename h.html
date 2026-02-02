@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命理运势 - 生辰八字运势财运预测</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+        <div class="planets"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <h1 class="main-title">命理运势</h1>
+                <p class="subtitle">生辰八字运势财运预测系统</p>
+            </div>
+            <div class="header-decoration">
+                <span class="decoration-line"></span>
+                <span class="decoration-symbol">✦</span>
+                <span class="decoration-line"></span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section">
+                <div class="card input-card">
+                    <h2 class="section-title">输入您的出生信息</h2>
+                    <p class="section-subtitle">请准确输入出生日期和时辰，以获得最精准的运势预测</p>
+                    
+                    <form id="fortuneForm" class="form">
+                        <div class="form-group">
+                            <label for="birthDate" class="form-label">出生日期</label>
+                            <input type="date" id="birthDate" required class="form-input">
+                            <span class="input-hint">格式: 年-月-日</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthHour" class="form-label">出生时辰</label>
+                            <select id="birthHour" required class="form-input">
+                                <option value="">--选择出生时辰--</option>
+                                <option value="0">子时 (23:00-01:00)</option>
+                                <option value="1">丑时 (01:00-03:00)</option>
+                                <option value="2">寅时 (03:00-05:00)</option>
+                                <option value="3">卯时 (05:00-07:00)</option>
+                                <option value="4">辰时 (07:00-09:00)</option>
+                                <option value="5">巳时 (09:00-11:00)</option>
+                                <option value="6">午时 (11:00-13:00)</option>
+                                <option value="7">未时 (13:00-15:00)</option>
+                                <option value="8">申时 (15:00-17:00)</option>
+                                <option value="9">酉时 (17:00-19:00)</option>
+                                <option value="10">戌时 (19:00-21:00)</option>
+                                <option value="11">亥时 (21:00-23:00)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="form-label">性别</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="male" required>
+                                    <span>男</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="female">
+                                    <span>女</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>开始预测运势</span>
+                            <span class="btn-icon">✦</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="resultsSection" class="results-section hidden">
+                <div class="card results-card">
+                    <h2 class="section-title">您的运势分析</h2>
+                    
+                    <div class="results-grid">
+                        <!-- 基本信息 -->
+                        <div class="result-item info-item">
+                            <h3 class="result-title">基本信息</h3>
+                            <div class="info-content">
+                                <p><span class="label">出生日期：</span><span id="displayDate"></span></p>
+                                <p><span class="label">时辰：</span><span id="displayHour"></span></p>
+                                <p><span class="label">性别：</span><span id="displayGender"></span></p>
+                                <p><span class="label">今日日期：</span><span id="todayDate"></span></p>
+                            </div>
+                        </div>
+
+                        <!-- 五行属性 -->
+                        <div class="result-item element-item">
+                            <h3 class="result-title">五行属性</h3>
+                            <div class="element-display">
+                                <div id="elementInfo" class="element-info"></div>
+                            </div>
+                        </div>
+
+                        <!-- 天干地支 -->
+                        <div class="result-item stems-item">
+                            <h3 class="result-title">天干地支</h3>
+                            <div class="stems-display">
+                                <div class="stems-row">
+                                    <div class="stem-box">
+                                        <div class="stem-label">年干</div>
+                                        <div id="yearStem" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">月干</div>
+                                        <div id="monthStem" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">日干</div>
+                                        <div id="dayStem" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">时干</div>
+                                        <div id="hourStem" class="stem-value"></div>
+                                    </div>
+                                </div>
+                                <div class="stems-row">
+                                    <div class="stem-box">
+                                        <div class="stem-label">年支</div>
+                                        <div id="yearBranch" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">月支</div>
+                                        <div id="monthBranch" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">日支</div>
+                                        <div id="dayBranch" class="stem-value"></div>
+                                    </div>
+                                    <div class="stem-box">
+                                        <div class="stem-label">时支</div>
+                                        <div id="hourBranch" class="stem-value"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 今日运势评分 -->
+                        <div class="result-item score-item">
+                            <h3 class="result-title">今日运势评分</h3>
+                            <div class="score-display">
+                                <div class="score-gauge">
+                                    <div class="gauge-label">总体运势</div>
+                                    <div id="overallScore" class="gauge-value">-</div>
+                                    <div class="gauge-bar">
+                                        <div id="overallBar" class="gauge-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 财运分析 -->
+                        <div class="result-item fortune-item">
+                            <h3 class="result-title">财运分析</h3>
+                            <div class="fortune-content">
+                                <div class="fortune-stat">
+                                    <span class="fortune-label">今日财运：</span>
+                                    <span id="fortuneScore" class="fortune-value">--</span>
+                                </div>
+                                <div class="fortune-stat">
+                                    <span class="fortune-label">财运指数：</span>
+                                    <span id="fortuneIndex" class="fortune-value">--</span>
+                                </div>
+                                <div class="fortune-bar">
+                                    <div id="fortuneBar" class="bar-fill"></div>
+                                </div>
+                                <p id="fortuneText" class="fortune-text"></p>
+                            </div>
+                        </div>
+
+                        <!-- 五行运势 -->
+                        <div class="result-item">
+                            <h3 class="result-title">五行运势对比</h3>
+                            <div id="elementFortune" class="element-fortune"></div>
+                        </div>
+
+                        <!-- 今日建议 -->
+                        <div class="result-item advice-item">
+                            <h3 class="result-title">今日建议</h3>
+                            <div id="advice" class="advice-content"></div>
+                        </div>
+
+                        <!-- 详细分析 -->
+                        <div class="result-item analysis-item">
+                            <h3 class="result-title">详细分析</h3>
+                            <div id="detailedAnalysis" class="analysis-content"></div>
+                        </div>
+                    </div>
+
+                    <div class="results-footer">
+                        <button onclick="resetForm()" class="reset-btn">
+                            <span>重新查询</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="card info-card">
+                    <h2 class="section-title">关于运势预测</h2>
+                    <div class="info-text">
+                        <p>本系统基于中国传统八字命理学原理，通过分析出生日期和时辰的天干地支组合，结合五行属性、阴阳平衡等因素，为您预测今天的运势和财运。</p>
+                        <p>预测结果仅供参考，运势受多种因素影响，包括个人行动、决策和环境因素。建议在重要决定前进行充分思考。</p>
+                        <h3>预测原理：</h3>
+                        <ul>
+                            <li><strong>五行学说：</strong>将一切事物归纳为金、木、水、火、土五类，分析运势的基础</li>
+                            <li><strong>天干地支：</strong>十天干和十二地支的组合，形成六十花甲周期</li>
+                            <li><strong>阴阳平衡：</strong>通过分析阴阳五行的平衡状况判断运势吉凶</li>
+                            <li><strong>纳音五行：</strong>将六十甲子分为三十个纳音五行，进一步细化分析</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2024 命理运势系统 | 基于传统八字命理学</p>
+            <p class="footer-note">此服务仅供娱乐和参考，不能作为重要决策的唯一依据</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
