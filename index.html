@@ -127,6 +127,28 @@
             padding-bottom: 10px;
         }
 
+        /* 币圈专属醒目卡片（完全匹配你截图的深色+荧光绿风格） */
+        #cryptoCard {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a1e3b 100%);
+            color: #00ff88;
+            border: 2px solid #00ff88;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+            font-size: 18px;
+            line-height: 2;
+            font-weight: 600;
+            white-space: pre-line;
+        }
+
+        #cryptoCard h3 {
+            color: #00ff88;
+            font-size: 26px;
+            border-bottom: none;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
         .bazi-display {
             font-size: 24px;
             font-weight: bold;
@@ -197,18 +219,6 @@
             color: #444;
             white-space: pre-line;
             font-size: 15px;
-        }
-
-        /* 币圈土狗运势专属醒目样式 */
-        #cryptoAdvice {
-            background: linear-gradient(135deg, #1e1e2e 0%, #2a1e3b 100%) !important;
-            color: #00ff88 !important;
-            border: 2px solid #00ff88;
-            border-radius: 12px;
-            padding: 25px !important;
-            font-weight: 600;
-            font-size: 16px;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .tabs {
@@ -331,13 +341,22 @@
             <!-- 结果面板 -->
             <div id="resultContainer" class="result-panel result-hidden">
                 <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab(event, 'tab-basic')">基础信息</button>
+                    <button class="tab-btn active" onclick="switchTab(event, 'tab-crypto')">🔥 币圈·土狗运势</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab-basic')">基础信息</button>
                     <button class="tab-btn" onclick="switchTab(event, 'tab-fortune')">运势指数</button>
                     <button class="tab-btn" onclick="switchTab(event, 'tab-detail')">详细报告</button>
                 </div>
 
+                <!-- 币圈·土狗运势（第一个Tab，默认打开） -->
+                <div id="tab-crypto" class="tab-content active">
+                    <div id="cryptoCard">
+                        <h3>🔥 币圈·土狗运势（今天适合打土狗吗？）</h3>
+                        <div id="cryptoAdvice"></div>
+                    </div>
+                </div>
+
                 <!-- 基础信息 -->
-                <div id="tab-basic" class="tab-content active">
+                <div id="tab-basic" class="tab-content">
                     <div class="result-card">
                         <h3>📊 八字排盘</h3>
                         <div id="baziDisplay" class="bazi-display"></div>
@@ -376,7 +395,7 @@
                     </div>
                 </div>
 
-                <!-- 详细报告 -->
+                <!-- 详细报告（已移除币圈内容） -->
                 <div id="tab-detail" class="tab-content">
                     <div class="result-card"><h3>基础信息</h3><div id="basicInfo" class="analysis-text"></div></div>
                     <div class="result-card"><h3>八字分析</h3><div id="baziAnalysis" class="analysis-text"></div></div>
@@ -386,7 +405,6 @@
                     <div class="result-card"><h3>事业分析</h3><div id="careerAnalysis" class="analysis-text"></div></div>
                     <div class="result-card"><h3>感情分析</h3><div id="loveAnalysis" class="analysis-text"></div></div>
                     <div class="result-card"><h3>健康建议</h3><div id="healthAdvice" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>🔥 币圈·土狗运势（今天适合打土狗吗？）</h3><div id="cryptoAdvice" class="analysis-text"></div></div>
                     <div class="result-card"><h3>逐月运势</h3><div id="monthlyFortune" class="analysis-text"></div></div>
                     <div class="result-card"><h3>改运建议</h3><div id="improveAdvice" class="analysis-text"></div></div>
                 </div>
@@ -395,7 +413,6 @@
     </div>
 
     <script>
-        // FortuneEngine
         class FortuneEngine {
             constructor() {
                 this.heavenStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -491,7 +508,6 @@
             }
         }
 
-        // DetailedAnalysisGenerator（完整版，含详细土狗运势）
         class DetailedAnalysisGenerator {
             constructor() {
                 this.wuXingDescriptions = {
@@ -500,15 +516,6 @@
                     '土': { 名称: '土', 颜色: '黄色', 方向: '中央', 季节: '四季末', 器官: '脾胃', 情绪: '思', 味道: '甘' },
                     '金': { 名称: '金', 颜色: '白色', 方向: '西方', 季节: '秋季', 器官: '肺肠', 情绪: '悲', 味道: '辛' },
                     '水': { 名称: '水', 颜色: '黑色', 方向: '北方', 季节: '冬季', 器官: '肾膀胱', 情绪: '恐', 味道: '咸' }
-                };
-
-                this.fortuneTemplate = {
-                    极好: { 范围: [85, 100], 描述: '运气极佳，吉星高照，诸事顺利', 建议: '把握机遇，大展拳脚' },
-                    很好: { 范围: [70, 84], 描述: '运气很好，贵人扶助，前路光明', 建议: '主动出击，乘势而上' },
-                    不错: { 范围: [55, 69], 描述: '运气不错，稳中有进，平稳发展', 建议: '稳健前进，不可急躁' },
-                    一般: { 范围: [40, 54], 描述: '运气一般，需要调整，需要努力', 建议: '调整策略，沉着应对' },
-                    较差: { 范围: [25, 39], 描述: '运气较差，挑战多，需要谨慎', 建议: '保守理财，避免冒险' },
-                    很差: { 范围: [0, 24], 描述: '运气很差，困难重重，需要静观其变', 建议: '蓄势待发，等待转机' }
                 };
             }
 
@@ -561,13 +568,7 @@
 
             generateFortuneAnalysis(fortune) {
                 const overall = fortune.fortuneIndices.overall;
-                let level = '一般';
-                for (let [k,v] of Object.entries(this.fortuneTemplate)) {
-                    if (overall >= v.范围[0] && overall <= v.范围[1]) { level = k; break; }
-                }
-                const t = this.fortuneTemplate[level];
-                let text = `综合运势：${t.描述}\n总体指数：${overall}/100\n建议：${t.建议}\n\n详细指数：\n`;
-                text += `财运：${fortune.fortuneIndices.wealth}/100\n事业：${fortune.fortuneIndices.career}/100\n感情：${fortune.fortuneIndices.love}/100\n健康：${fortune.fortuneIndices.health}/100`;
+                let text = `综合运势指数：${overall}/100\n\n详细指数：\n财运：${fortune.fortuneIndices.wealth}/100\n事业：${fortune.fortuneIndices.career}/100\n感情：${fortune.fortuneIndices.love}/100\n健康：${fortune.fortuneIndices.health}/100`;
                 return text;
             }
 
@@ -639,30 +640,15 @@
                 advice += `你的日主五行【${wx}】：${wxStyle[wx] || '灵活应变，随机应变'}\n\n`;
 
                 if (wealth > 85 && overall > 75) {
-                    advice += '⚡⚡ 今日土狗运极佳！财星高照，贵人运爆棚！\n';
-                    advice += '非常适合打土狗、上新、上所项目，容易吃到大肉！\n';
-                    advice += '建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n';
-                    advice += '⚠️ 记得见好就收，落袋为安！';
+                    advice += '⚡⚡ 今日土狗运极佳！财星高照，贵人运爆棚！\n非常适合打土狗、上新、上所项目，容易吃到大肉！\n建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n⚠️ 记得见好就收，落袋为安！';
                 } else if (wealth > 70) {
-                    advice += '🔥 土狗运很不错，有小惊喜！\n';
-                    advice += '今天适合打土狗，轻仓试水热点项目很容易吃肉。\n';
-                    advice += '推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n';
-                    advice += '策略：设置止盈止损，玩得开心。';
+                    advice += '🔥 土狗运很不错，有小惊喜！\n今天适合打土狗，轻仓试水热点项目很容易吃肉。\n推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n策略：设置止盈止损，玩得开心。';
                 } else if (wealth > 50) {
-                    advice += '📊 土狗运中等，市场震荡。\n';
-                    advice += '可以小玩怡情，但不建议重仓打土狗。\n';
-                    advice += '更适合埋伏蓝筹或老 meme，避免追高。\n';
-                    advice += '耐心等回调再出手。';
+                    advice += '📊 土狗运中等，市场震荡。\n可以小玩怡情，但不建议重仓打土狗。\n更适合埋伏蓝筹或老 meme，避免追高。\n耐心等回调再出手。';
                 } else if (wealth > 30) {
-                    advice += '⚠️ 土狗运偏弱，容易被割。\n';
-                    advice += '今天不建议打新土狗，容易站岗。\n';
-                    advice += '推荐观望或只用娱乐资金玩老项目。\n';
-                    advice += '多学习，等待更好时机。';
+                    advice += '⚠️ 土狗运偏弱，容易被割。\n今天不建议打新土狗，容易站岗。\n推荐观望或只用娱乐资金玩老项目。\n多学习，等待更好时机。';
                 } else {
-                    advice += '❄️ 今日土狗运很差，强烈不建议打土狗！\n';
-                    advice += '容易接盘、被套，FOMO 必亏。\n';
-                    advice += '建议持币休息，或只持 BTC/ETH 大币。\n';
-                    advice += '耐心等大运到来，币圈最忌急躁。';
+                    advice += '❄️ 今日土狗运很差，强烈不建议打土狗！\n容易接盘、被套，FOMO 必亏。\n建议持币休息，或只持 BTC/ETH 大币。\n耐心等大运到来，币圈最忌急躁。';
                 }
 
                 advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）`;
@@ -742,7 +728,7 @@
             document.getElementById('monthlyFortune').textContent = report.逐月运势;
             document.getElementById('improveAdvice').textContent = report.改运建议;
 
-            switchTab(null, 'tab-basic');
+            switchTab(null, 'tab-crypto');
         }
 
         function switchTab(e, tabName) {
