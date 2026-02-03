@@ -101,6 +101,15 @@
             font-size: 17px;
             color: white;
             transition: all 0.3s;
+            appearance: none; /* 去除默认箭头，确保自定义样式一致 */
+            -webkit-appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300ff88' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
         }
 
         input:focus, select:focus {
@@ -330,10 +339,18 @@
                 <div class="form-group">
                     <label>出生月份</label>
                     <select id="month">
-                        <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
-                        <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
-                        <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
-                        <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+                        <option value="1" selected>1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
                     </select>
                 </div>
 
@@ -345,12 +362,18 @@
                 <div class="form-group">
                     <label>出生时辰（大致即可）</label>
                     <select id="hour">
-                        <option value="0">子时 23-01</option><option value="1">丑时 01-03</option>
-                        <option value="3">寅时 03-05</option><option value="5">卯时 05-07</option>
-                        <option value="7">辰时 07-09</option><option value="9">巳时 09-11</option>
-                        <option value="11">午时 11-13</option><option value="13">未时 13-15</option>
-                        <option value="15">申时 15-17</option><option value="17">酉时 17-19</option>
-                        <option value="19">戌时 19-21</option><option value="21">亥时 21-23</option>
+                        <option value="0">子时 23-01</option>
+                        <option value="1">丑时 01-03</option>
+                        <option value="3">寅时 03-05</option>
+                        <option value="5">卯时 05-07</option>
+                        <option value="7">辰时 07-09</option>
+                        <option value="9">巳时 09-11</option>
+                        <option value="11">午时 11-13</option>
+                        <option value="13">未时 13-15</option>
+                        <option value="15">申时 15-17</option>
+                        <option value="17">酉时 17-19</option>
+                        <option value="19">戌时 19-21</option>
+                        <option value="21">亥时 21-23</option>
                         <option value="12" selected>未知（取中午）</option>
                     </select>
                 </div>
@@ -760,11 +783,11 @@
         const generator = new DetailedAnalysisGenerator();
 
         function calculateFortune() {
-            const year = parseInt(document.getElementById('year').value);
-            const month = parseInt(document.getElementById('month').value);
-            const day = parseInt(document.getElementById('day').value);
-            const hour = parseInt(document.getElementById('hour').value);
-            const gender = document.getElementById('gender').value;
+            const year = parseInt(document.getElementById('year').value) || 1995;
+            const month = parseInt(document.getElementById('month').value) || 1;
+            const day = parseInt(document.getElementById('day').value) || 1;
+            const hour = parseInt(document.getElementById('hour').value) || 12;
+            const gender = document.getElementById('gender').value || 'male';
 
             const fortune = engine.generateFortune(year, month, day, hour, gender);
             const report = generator.generateFullReport(fortune);
@@ -817,16 +840,25 @@
 
         function initDays() {
             const daySelect = document.getElementById('day');
-            daySelect.innerHTML = '';
-            const daysInMonth = new Date(document.getElementById('year').value, document.getElementById('month').value, 0).getDate();
+            daySelect.innerHTML = '<option value="" disabled selected>请选择日期</option>'; // 添加默认提示
+            const year = parseInt(document.getElementById('year').value) || 1995;
+            const month = parseInt(document.getElementById('month').value) || 1;
+            const daysInMonth = new Date(year, month, 0).getDate();
             for (let i = 1; i <= daysInMonth; i++) {
                 daySelect.innerHTML += `<option value="${i}">${i}日</option>`;
             }
+            // 默认选中1日
+            daySelect.value = 1;
         }
+
+        // 事件监听
         document.getElementById('year').addEventListener('change', initDays);
         document.getElementById('month').addEventListener('change', initDays);
-        initDays();
-        document.getElementById('day').value = new Date().getDate();
+
+        // 页面加载完成后初始化
+        window.onload = function() {
+            initDays();
+        };
     </script>
 </body>
 </html>
