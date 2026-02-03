@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>八字算命大师 - 专业运势预测系统</title>
+    <title>玄学·币运大师</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0f0c29;
+            --bg-secondary: #302b63;
+            --bg-tertiary: #24243e;
+            --accent-neon: #00ff88;
+            --accent-purple: #667eea;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,99 +25,108 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
             min-height: 100vh;
             padding: 40px 20px;
+            background-attachment: fixed;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            color: white;
-            margin-bottom: 50px;
-            animation: fadeInDown 0.6s ease;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
         }
 
         h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
         }
 
         .subtitle {
-            font-size: 18px;
-            opacity: 0.95;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            letter-spacing: 2px;
         }
 
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 40px;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 50px;
             align-items: start;
         }
 
         .panel {
-            background: white;
-            border-radius: 15px;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            animation: slideInLeft 0.6s ease;
-        }
-
-        .result-panel {
-            animation: slideInRight 0.6s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: slideInLeft 0.8s ease;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 600;
-            color: #555;
-            font-size: 15px;
+            font-size: 16px;
+            color: var(--accent-neon);
+            letter-spacing: 1px;
         }
 
         input, select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--accent-purple);
+            border-radius: 12px;
+            font-size: 17px;
+            color: white;
             transition: all 0.3s;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: #764ba2;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 18px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-neon));
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 20px;
             font-weight: 700;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6);
         }
 
         .result-hidden {
@@ -112,163 +134,161 @@
         }
 
         .result-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px);
         }
 
         .result-card h3 {
-            color: #667eea;
-            font-size: 20px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: var(--accent-neon);
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: 1.5px;
         }
 
-        /* 币圈专属醒目卡片（完全匹配你截图的深色+荧光绿风格） */
+        /* 币圈专属顶级卡片 */
         #cryptoCard {
-            background: linear-gradient(135deg, #1e1e2e 0%, #2a1e3b 100%);
-            color: #00ff88;
-            border: 2px solid #00ff88;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
-            font-size: 18px;
-            line-height: 2;
-            font-weight: 600;
-            white-space: pre-line;
+            background: linear-gradient(135deg, #1a0033 0%, #0f0c29 100%);
+            border: 2px solid var(--accent-neon);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
         }
 
         #cryptoCard h3 {
-            color: #00ff88;
-            font-size: 26px;
-            border-bottom: none;
-            text-align: center;
+            font-size: 32px;
             margin-bottom: 30px;
         }
 
+        #cryptoAdvice {
+            font-size: 20px;
+            line-height: 2.2;
+            text-align: left;
+            white-space: pre-line;
+        }
+
         .bazi-display {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            line-height: 1.8;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 2;
             text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 10px;
+            padding: 30px;
+            background: var(--glass);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
         }
 
         .wuxing-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
+            gap: 20px;
         }
 
         .wuxing-item {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            color: white;
-            font-weight: bold;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
         }
 
-        .wuxing-wood { background-color: #4CAF50; }
-        .wuxing-fire { background-color: #FF6B6B; }
-        .wuxing-earth { background-color: #D4A574; }
-        .wuxing-metal { background-color: #FFD700; color: #333; }
-        .wuxing-water { background-color: #2196F3; }
+        .wuxing-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+        }
 
         .wuxing-count {
-            font-size: 32px;
-            margin-top: 8px;
+            font-size: 42px;
+            font-weight: 700;
+            margin-top: 10px;
+            color: var(--accent-neon);
         }
 
         .fortune-bar-container {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .fortune-bar-label {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
+            font-size: 18px;
         }
 
         .fortune-bar {
-            width: 100%;
-            height: 12px;
-            background-color: #E0E0E0;
-            border-radius: 6px;
+            height: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .fortune-bar-fill {
             height: 100%;
-            border-radius: 6px;
-            transition: width 0.8s ease;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-neon));
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+            transition: width 1.5s ease;
         }
 
         .analysis-text {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            line-height: 1.8;
-            color: #444;
-            white-space: pre-line;
-            font-size: 15px;
+            background: var(--glass);
+            padding: 28px;
+            border-radius: 16px;
+            line-height: 2;
+            font-size: 17px;
+            border: 1px solid var(--glass-border);
         }
 
         .tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 12px;
+            margin-bottom: 30px;
+            justify-content: center;
         }
 
         .tab-btn {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            color: #666;
+            padding: 14px 32px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.4s;
         }
 
         .tab-btn.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-neon));
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
 
         .tab-btn:hover {
-            color: #667eea;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
+            from { opacity: 0; transform: translateX(-60px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -276,31 +296,31 @@
             .main-content {
                 grid-template-columns: 1fr;
             }
-            h1 { font-size: 36px; }
+            h1 { font-size: 42px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>✨ 八字算命大师 ✨</h1>
-            <p class="subtitle">专业八字排盘 · 五行分析 · 币圈土狗专属运势</p>
+            <h1>玄学·币运大师</h1>
+            <p class="subtitle">八字排盘 · 五行推演 · 专属土狗运势</p>
         </header>
 
         <div class="main-content">
             <!-- 输入面板 -->
             <div class="panel">
-                <h2 style="margin-top: 0; color: #333; font-size: 24px; margin-bottom: 30px;">
-                    📝 请填写出生信息
+                <h2 style="text-align: center; font-family: 'Orbitron', sans-serif; font-size: 28px; margin-bottom: 40px; color: var(--accent-neon);">
+                    输入出生信息
                 </h2>
 
                 <div class="form-group">
-                    <label>🎂 出生年份</label>
+                    <label>出生年份</label>
                     <input type="number" id="year" min="1900" max="2026" value="1995">
                 </div>
 
                 <div class="form-group">
-                    <label>📅 出生月份</label>
+                    <label>出生月份</label>
                     <select id="month">
                         <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
                         <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
@@ -310,12 +330,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label>📆 出生日期</label>
+                    <label>出生日期</label>
                     <select id="day"></select>
                 </div>
 
                 <div class="form-group">
-                    <label>🕐 出生时辰（大致即可）</label>
+                    <label>出生时辰（大致即可）</label>
                     <select id="hour">
                         <option value="0">子时 23-01</option><option value="1">丑时 01-03</option>
                         <option value="3">寅时 03-05</option><option value="5">卯时 05-07</option>
@@ -328,29 +348,29 @@
                 </div>
 
                 <div class="form-group">
-                    <label>👤 性别</label>
+                    <label>性别</label>
                     <select id="gender">
                         <option value="male">男</option>
                         <option value="female">女</option>
                     </select>
                 </div>
 
-                <button onclick="calculateFortune()">🔮 开始算命</button>
+                <button onclick="calculateFortune()">开始推演</button>
             </div>
 
             <!-- 结果面板 -->
             <div id="resultContainer" class="result-panel result-hidden">
                 <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab(event, 'tab-crypto')">🔥 币圈·土狗运势</button>
+                    <button class="tab-btn active" onclick="switchTab(event, 'tab-crypto')">币圈·土狗运势</button>
                     <button class="tab-btn" onclick="switchTab(event, 'tab-basic')">基础信息</button>
                     <button class="tab-btn" onclick="switchTab(event, 'tab-fortune')">运势指数</button>
                     <button class="tab-btn" onclick="switchTab(event, 'tab-detail')">详细报告</button>
                 </div>
 
-                <!-- 币圈·土狗运势（第一个Tab，默认打开） -->
+                <!-- 币圈·土狗运势 -->
                 <div id="tab-crypto" class="tab-content active">
                     <div id="cryptoCard">
-                        <h3>🔥 币圈·土狗运势（今天适合打土狗吗？）</h3>
+                        <h3>币圈·土狗运势（今天适合打土狗吗？）</h3>
                         <div id="cryptoAdvice"></div>
                     </div>
                 </div>
@@ -358,12 +378,12 @@
                 <!-- 基础信息 -->
                 <div id="tab-basic" class="tab-content">
                     <div class="result-card">
-                        <h3>📊 八字排盘</h3>
+                        <h3>八字排盘</h3>
                         <div id="baziDisplay" class="bazi-display"></div>
                     </div>
 
                     <div class="result-card">
-                        <h3>🌊 五行分布</h3>
+                        <h3>五行分布</h3>
                         <div id="wuxingGrid" class="wuxing-grid"></div>
                     </div>
                 </div>
@@ -371,7 +391,7 @@
                 <!-- 运势指数 -->
                 <div id="tab-fortune" class="tab-content">
                     <div class="result-card">
-                        <h3>🎯 综合运势指数</h3>
+                        <h3>综合运势指数</h3>
                         <div class="fortune-bar-container">
                             <div class="fortune-bar-label"><span>综合运势</span><span id="overallValue">0%</span></div>
                             <div class="fortune-bar"><div id="overallBar" class="fortune-bar-fill" style="width:0%"></div></div>
@@ -395,7 +415,7 @@
                     </div>
                 </div>
 
-                <!-- 详细报告（已移除币圈内容） -->
+                <!-- 详细报告 -->
                 <div id="tab-detail" class="tab-content">
                     <div class="result-card"><h3>基础信息</h3><div id="basicInfo" class="analysis-text"></div></div>
                     <div class="result-card"><h3>八字分析</h3><div id="baziAnalysis" class="analysis-text"></div></div>
@@ -628,7 +648,7 @@
                 const wx = fortune.dayMasterWuXing;
                 const strength = fortune.dayMasterStrength;
 
-                let advice = '🔥 币圈·土狗运势分析（纯娱乐，投资有风险） 🔥\n\n';
+                let advice = '币圈·土狗运势分析（纯娱乐，投资有风险）\n\n';
 
                 const wxStyle = {
                     '木': '成长型项目，适合长线埋伏新叙事（如Layer2、AI链）',
@@ -640,15 +660,15 @@
                 advice += `你的日主五行【${wx}】：${wxStyle[wx] || '灵活应变，随机应变'}\n\n`;
 
                 if (wealth > 85 && overall > 75) {
-                    advice += '⚡⚡ 今日土狗运极佳！财星高照，贵人运爆棚！\n非常适合打土狗、上新、上所项目，容易吃到大肉！\n建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n⚠️ 记得见好就收，落袋为安！';
+                    advice += '今日土狗运极佳！财星高照，贵人运爆棚！\n非常适合打土狗、上新、上所项目，容易吃到大肉！\n建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n记得见好就收，落袋为安！';
                 } else if (wealth > 70) {
-                    advice += '🔥 土狗运很不错，有小惊喜！\n今天适合打土狗，轻仓试水热点项目很容易吃肉。\n推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n策略：设置止盈止损，玩得开心。';
+                    advice += '土狗运很不错，有小惊喜！\n今天适合打土狗，轻仓试水热点项目很容易吃肉。\n推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n策略：设置止盈止损，玩得开心。';
                 } else if (wealth > 50) {
-                    advice += '📊 土狗运中等，市场震荡。\n可以小玩怡情，但不建议重仓打土狗。\n更适合埋伏蓝筹或老 meme，避免追高。\n耐心等回调再出手。';
+                    advice += '土狗运中等，市场震荡。\n可以小玩怡情，但不建议重仓打土狗。\n更适合埋伏蓝筹或老 meme，避免追高。\n耐心等回调再出手。';
                 } else if (wealth > 30) {
-                    advice += '⚠️ 土狗运偏弱，容易被割。\n今天不建议打新土狗，容易站岗。\n推荐观望或只用娱乐资金玩老项目。\n多学习，等待更好时机。';
+                    advice += '土狗运偏弱，容易被割。\n今天不建议打新土狗，容易站岗。\n推荐观望或只用娱乐资金玩老项目。\n多学习，等待更好时机。';
                 } else {
-                    advice += '❄️ 今日土狗运很差，强烈不建议打土狗！\n容易接盘、被套，FOMO 必亏。\n建议持币休息，或只持 BTC/ETH 大币。\n耐心等大运到来，币圈最忌急躁。';
+                    advice += '今日土狗运很差，强烈不建议打土狗！\n容易接盘、被套，FOMO 必亏。\n建议持币休息，或只持 BTC/ETH 大币。\n耐心等大运到来，币圈最忌急躁。';
                 }
 
                 advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）`;
@@ -702,9 +722,8 @@
             `;
 
             const wxOrder = ['木','火','土','金','水'];
-            const wxClass = { '木':'wood','火':'fire','土':'earth','金':'metal','水':'water' };
             document.getElementById('wuxingGrid').innerHTML = wxOrder.map(w => `
-                <div class="wuxing-item wuxing-${wxClass[w]}">
+                <div class="wuxing-item">
                     <div>${w}</div>
                     <div class="wuxing-count">${fortune.wuXingCount[w]}</div>
                 </div>
