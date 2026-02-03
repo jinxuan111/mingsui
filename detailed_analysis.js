@@ -77,10 +77,66 @@ class DetailedAnalysisGenerator {
       感情分析: this.generateLoveAnalysis(fortune),
       健康建议: this.generateHealthAdvice(fortune),
       逐月运势: this.generateMonthlyFortune(fortune),
-      改运建议: this.generateImproveAdvice(fortune)
+      改运建议: this.generateImproveAdvice(fortune),
+      币圈建议: this.generateCryptoAdvice(fortune)
     };
   }
+  
+  generateCryptoAdvice(fortune) {
+    const wealth = fortune.fortuneIndices.wealth;
+    const overall = fortune.fortuneIndices.overall;
+    const wx = fortune.dayMasterWuXing;
+    const strength = fortune.dayMasterStrength;
 
+    let advice = '🔥 币圈·土狗运势分析 🔥\n\n';
+
+    // 五行对应币圈风格
+    const wxStyle = {
+        '木': '成长型项目，适合长线埋伏新叙事',
+        '火': '热点爆炒，今天容易短线吃肉',
+        '土': '宜持蓝筹稳定币，土狗风险高',
+        '金': '高风险高收益，适合重仓梭哈',
+        '水': '流动性强，适合快进快出波段'
+    };
+    advice += `你的日主五行【${wx}】：${wxStyle[wx] || '灵活应变，随机应变'}\n\n`;
+
+    if (wealth > 85 && overall > 75) {
+        advice += '⚡⚡ 今日土狗运极佳！财星高照，贵人运爆棚！\n';
+        advice += '非常适合打土狗、上新、上所项目，容易吃到大肉！\n';
+        advice += '建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n';
+        advice += '⚠️ 记得见好就收，落袋为安！';
+    } else if (wealth > 70) {
+        advice += '🔥 土狗运很不错，有小惊喜！\n';
+        advice += '今天适合打土狗，轻仓试水热点项目很容易吃肉。\n';
+        advice += '推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n';
+        advice += '策略：设置止盈止损，玩得开心。';
+    } else if (wealth > 50) {
+        advice += '📊 土狗运中等，市场震荡。\n';
+        advice += '可以小玩怡情，但不建议重仓打土狗。\n';
+        advice += '更适合埋伏蓝筹或老 meme，避免追高。\n';
+        advice += '耐心等回调再出手。';
+    } else if (wealth > 30) {
+        advice += '⚠️ 土狗运偏弱，容易被割。\n';
+        advice += '今天不建议打新土狗，容易站岗。\n';
+        advice += '推荐观望或只用娱乐资金玩老项目。\n';
+        advice += '多学习，等待更好时机。';
+    } else {
+        advice += '❄️ 今日土狗运很差，强烈不建议打土狗！\n';
+        advice += '容易接盘、被套，FOMO 必亏。\n';
+        advice += '建议持币休息，或只持 BTC/ETH 大币。\n';
+        advice += '耐心等大运到来，币圈最忌急躁。';
+    }
+
+    advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）`;
+
+    if (strength > 70) {
+        advice += '\n日主强势：你天生适合高风险操作，把握节奏易大成！';
+    } else if (strength < 40) {
+        advice += '\n日主偏弱：建议保守策略，避免过度投机。';
+    }
+
+    return advice;
+}
   generateBasicInfo(fortune) {
     return {
       年龄: fortune.age,

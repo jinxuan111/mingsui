@@ -199,6 +199,18 @@
             font-size: 15px;
         }
 
+        /* 币圈土狗运势专属醒目样式 */
+        #cryptoAdvice {
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a1e3b 100%) !important;
+            color: #00ff88 !important;
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 25px !important;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
         .tabs {
             display: flex;
             flex-wrap: wrap;
@@ -262,7 +274,7 @@
     <div class="container">
         <header>
             <h1>✨ 八字算命大师 ✨</h1>
-            <p class="subtitle">专业八字排盘 · 五行分析 · 详细运势报告</p>
+            <p class="subtitle">专业八字排盘 · 五行分析 · 币圈土狗专属运势</p>
         </header>
 
         <div class="main-content">
@@ -374,6 +386,7 @@
                     <div class="result-card"><h3>事业分析</h3><div id="careerAnalysis" class="analysis-text"></div></div>
                     <div class="result-card"><h3>感情分析</h3><div id="loveAnalysis" class="analysis-text"></div></div>
                     <div class="result-card"><h3>健康建议</h3><div id="healthAdvice" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>🔥 币圈·土狗运势（今天适合打土狗吗？）</h3><div id="cryptoAdvice" class="analysis-text"></div></div>
                     <div class="result-card"><h3>逐月运势</h3><div id="monthlyFortune" class="analysis-text"></div></div>
                     <div class="result-card"><h3>改运建议</h3><div id="improveAdvice" class="analysis-text"></div></div>
                 </div>
@@ -382,7 +395,7 @@
     </div>
 
     <script>
-        // FortuneEngine（简化版，足够准确）
+        // FortuneEngine
         class FortuneEngine {
             constructor() {
                 this.heavenStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -406,10 +419,10 @@
             }
 
             dayToGanZhi(year, month, day) {
-                const base = new Date(1900, 0, 31); // 1900-01-31 是甲子日
+                const base = new Date(1900, 0, 31);
                 const current = new Date(year, month - 1, day);
                 const days = Math.floor((current - base) / 86400000);
-                const stemIndex = (days + 60) % 10; // 调整偏移
+                const stemIndex = (days + 60) % 10;
                 const branchIndex = (days + 60) % 12;
                 return this.heavenStems[stemIndex] + this.earthBranches[branchIndex];
             }
@@ -478,7 +491,7 @@
             }
         }
 
-        // DetailedAnalysisGenerator（完整专业报告）
+        // DetailedAnalysisGenerator（完整版，含详细土狗运势）
         class DetailedAnalysisGenerator {
             constructor() {
                 this.wuXingDescriptions = {
@@ -509,6 +522,7 @@
                     事业分析: this.generateCareerAnalysis(fortune),
                     感情分析: this.generateLoveAnalysis(fortune),
                     健康建议: this.generateHealthAdvice(fortune),
+                    币圈土狗运势: this.generateCryptoAdvice(fortune),
                     逐月运势: this.generateMonthlyFortune(fortune),
                     改运建议: this.generateImproveAdvice(fortune)
                 };
@@ -607,6 +621,61 @@
                 return `重点关注：${t.器官}\n注意事项：${t.注意}\n调理建议：${t.调理}\n今年健康指数：${fortune.fortuneIndices.health}/100`;
             }
 
+            generateCryptoAdvice(fortune) {
+                const wealth = fortune.fortuneIndices.wealth;
+                const overall = fortune.fortuneIndices.overall;
+                const wx = fortune.dayMasterWuXing;
+                const strength = fortune.dayMasterStrength;
+
+                let advice = '🔥 币圈·土狗运势分析（纯娱乐，投资有风险） 🔥\n\n';
+
+                const wxStyle = {
+                    '木': '成长型项目，适合长线埋伏新叙事（如Layer2、AI链）',
+                    '火': '热点爆炒，今天容易短线吃肉（meme、热搜概念）',
+                    '土': '宜持蓝筹稳定币，土狗风险高（BTC/ETH为主）',
+                    '金': '高风险高收益，适合重仓梭哈潜力宝石',
+                    '水': '流动性强，适合快进快出波段（DEX、衍生品）'
+                };
+                advice += `你的日主五行【${wx}】：${wxStyle[wx] || '灵活应变，随机应变'}\n\n`;
+
+                if (wealth > 85 && overall > 75) {
+                    advice += '⚡⚡ 今日土狗运极佳！财星高照，贵人运爆棚！\n';
+                    advice += '非常适合打土狗、上新、上所项目，容易吃到大肉！\n';
+                    advice += '建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n';
+                    advice += '⚠️ 记得见好就收，落袋为安！';
+                } else if (wealth > 70) {
+                    advice += '🔥 土狗运很不错，有小惊喜！\n';
+                    advice += '今天适合打土狗，轻仓试水热点项目很容易吃肉。\n';
+                    advice += '推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n';
+                    advice += '策略：设置止盈止损，玩得开心。';
+                } else if (wealth > 50) {
+                    advice += '📊 土狗运中等，市场震荡。\n';
+                    advice += '可以小玩怡情，但不建议重仓打土狗。\n';
+                    advice += '更适合埋伏蓝筹或老 meme，避免追高。\n';
+                    advice += '耐心等回调再出手。';
+                } else if (wealth > 30) {
+                    advice += '⚠️ 土狗运偏弱，容易被割。\n';
+                    advice += '今天不建议打新土狗，容易站岗。\n';
+                    advice += '推荐观望或只用娱乐资金玩老项目。\n';
+                    advice += '多学习，等待更好时机。';
+                } else {
+                    advice += '❄️ 今日土狗运很差，强烈不建议打土狗！\n';
+                    advice += '容易接盘、被套，FOMO 必亏。\n';
+                    advice += '建议持币休息，或只持 BTC/ETH 大币。\n';
+                    advice += '耐心等大运到来，币圈最忌急躁。';
+                }
+
+                advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）`;
+
+                if (strength > 70) {
+                    advice += '\n日主强势：你天生适合高风险操作，把握节奏易大成！';
+                } else if (strength < 40) {
+                    advice += '\n日主偏弱：建议保守策略，避免过度投机。';
+                }
+
+                return advice;
+            }
+
             generateMonthlyFortune(fortune) {
                 const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                 let text = '2026年逐月运势简评：\n\n';
@@ -637,10 +706,8 @@
             const fortune = engine.generateFortune(year, month, day, hour, gender);
             const report = generator.generateFullReport(fortune);
 
-            // 显示结果
             document.getElementById('resultContainer').classList.remove('result-hidden');
 
-            // 八字
             document.getElementById('baziDisplay').innerHTML = `
                 <div>年柱：${fortune.baZi.year}</div>
                 <div>月柱：${fortune.baZi.month}</div>
@@ -648,7 +715,6 @@
                 <div>时柱：${fortune.baZi.hour}</div>
             `;
 
-            // 五行
             const wxOrder = ['木','火','土','金','水'];
             const wxClass = { '木':'wood','火':'fire','土':'earth','金':'metal','水':'water' };
             document.getElementById('wuxingGrid').innerHTML = wxOrder.map(w => `
@@ -658,14 +724,12 @@
                 </div>
             `).join('');
 
-            // 指数条
             const idx = fortune.fortuneIndices;
             ['overall','wealth','career','love','health'].forEach(k => {
                 document.getElementById(k+'Value').textContent = idx[k] + '%';
                 document.getElementById(k+'Bar').style.width = idx[k] + '%';
             });
 
-            // 详细报告
             document.getElementById('basicInfo').textContent = report.基础信息;
             document.getElementById('baziAnalysis').textContent = report.八字分析;
             document.getElementById('wuxingAnalysis').textContent = report.五行分析;
@@ -674,10 +738,10 @@
             document.getElementById('careerAnalysis').textContent = report.事业分析;
             document.getElementById('loveAnalysis').textContent = report.感情分析;
             document.getElementById('healthAdvice').textContent = report.健康建议;
+            document.getElementById('cryptoAdvice').textContent = report.币圈土狗运势;
             document.getElementById('monthlyFortune').textContent = report.逐月运势;
             document.getElementById('improveAdvice').textContent = report.改运建议;
 
-            // 默认显示第一个tab
             switchTab(null, 'tab-basic');
         }
 
@@ -689,7 +753,6 @@
             document.querySelector(`.tab-btn[onclick="switchTab(event, '${tabName}')"]`).classList.add('active');
         }
 
-        // 初始化日期选择
         function initDays() {
             const daySelect = document.getElementById('day');
             daySelect.innerHTML = '';
