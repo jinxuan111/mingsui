@@ -101,15 +101,29 @@
             font-size: 17px;
             color: white;
             transition: all 0.3s;
-            appearance: none; /* 去除默认箭头，确保自定义样式一致 */
+            appearance: none;
             -webkit-appearance: none;
         }
 
+        /* 自定义下拉箭头 */
         select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300ff88' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 16px center;
             background-size: 12px;
+        }
+
+        /* 强制选项文字和背景颜色（解决白色文字问题） */
+        select option {
+            background-color: var(--bg-primary) !important;
+            color: var(--accent-neon) !important;
+            font-size: 17px !important;
+        }
+
+        /* 选中高亮 */
+        select option:checked {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-neon)) !important;
+            color: white !important;
         }
 
         input:focus, select:focus {
@@ -840,22 +854,20 @@
 
         function initDays() {
             const daySelect = document.getElementById('day');
-            daySelect.innerHTML = '<option value="" disabled selected>请选择日期</option>'; // 添加默认提示
-            const year = parseInt(document.getElementById('year').value) || 1995;
+            daySelect.innerHTML = '';
+            const year = parseInt(document.getElementById('year').value) || new Date().getFullYear();
             const month = parseInt(document.getElementById('month').value) || 1;
             const daysInMonth = new Date(year, month, 0).getDate();
             for (let i = 1; i <= daysInMonth; i++) {
-                daySelect.innerHTML += `<option value="${i}">${i}日</option>`;
+                const selected = (i === 1) ? ' selected' : '';
+                daySelect.innerHTML += `<option value="${i}"${selected}>${i}日</option>`;
             }
-            // 默认选中1日
-            daySelect.value = 1;
         }
 
-        // 事件监听
         document.getElementById('year').addEventListener('change', initDays);
         document.getElementById('month').addEventListener('change', initDays);
 
-        // 页面加载完成后初始化
+        // 页面加载立即初始化
         window.onload = function() {
             initDays();
         };
