@@ -1,0 +1,875 @@
+:root {
+    --primary: #00ff88;
+    --secondary: #ff006e;
+    --accent: #ffbe0b;
+    --dark-bg: #0a0e27;
+    --card-bg: rgba(15, 20, 45, 0.8);
+    --border-color: #1a2555;
+    --text-primary: #e0e6ff;
+    --text-secondary: #a0aacc;
+    --doge-gold: #d4af37;
+    --doge-orange: #ff8c00;
+    --crypto-blue: #1e90ff;
+    --wealth-green: #00d084;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Courier New', monospace, 'Noto Sans SC', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* 背景效果 */
+.cosmic-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(0, 255, 136, 0.03) 0%,
+        rgba(255, 0, 110, 0.02) 25%,
+        rgba(30, 144, 255, 0.03) 50%,
+        rgba(212, 175, 55, 0.02) 75%,
+        rgba(0, 255, 136, 0.03) 100%);
+    animation: cosmic-drift 20s ease-in-out infinite;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.grid-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 255, 136, 0.05) 25%, rgba(0, 255, 136, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 136, 0.05) 75%, rgba(0, 255, 136, 0.05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    z-index: -1;
+    pointer-events: none;
+    animation: grid-move 8s linear infinite;
+}
+
+@keyframes cosmic-drift {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes grid-move {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+}
+
+/* Header */
+.header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(180deg, rgba(10, 14, 39, 0.95) 0%, rgba(10, 14, 39, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+    margin-bottom: 2rem;
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    flex: 1;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(120deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--doge-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    letter-spacing: 3px;
+    margin-bottom: 0.3rem;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.header-stats {
+    display: flex;
+    gap: 3rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.doge-grade {
+    color: var(--doge-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* 主容器 */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+    position: relative;
+    z-index: 5;
+}
+
+/* 输入部分 */
+.input-section {
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.input-card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2), inset 0 0 20px rgba(0, 255, 136, 0.05);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-field input,
+.input-field select {
+    padding: 0.8rem;
+    background: rgba(26, 37, 85, 0.5);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    background: rgba(26, 37, 85, 0.8);
+}
+
+/* 按钮 */
+.btn {
+    padding: 0.9rem 2rem;
+    border: 2px solid;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    z-index: -1;
+    transition: left 0.3s ease;
+}
+
+.btn:hover::before {
+    left: 0;
+}
+
+.btn-primary {
+    border-color: var(--primary);
+    color: var(--dark-bg);
+    background: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    color: var(--dark-bg);
+    background: var(--secondary);
+    box-shadow: 0 0 30px rgba(255, 0, 110, 0.4);
+}
+
+.btn-export {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: transparent;
+}
+
+.btn-export:hover {
+    color: var(--dark-bg);
+    background: var(--accent);
+    box-shadow: 0 0 30px rgba(255, 190, 11, 0.4);
+}
+
+/* 结果部分 */
+.results-section {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.glitch-container {
+    position: relative;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 卡片样式 */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.15), inset 0 0 20px rgba(0, 255, 136, 0.05);
+    transform: translateY(-5px);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-header h3 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    letter-spacing: 1px;
+}
+
+.card-code {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    background: rgba(0, 255, 136, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.card-content {
+    color: var(--text-primary);
+}
+
+/* 具体卡片样式 */
+.card-fortune .card-header h3 { color: #ffbe0b; }
+.card-wealth .card-header h3 { color: #00d084; }
+.card-doge .card-header h3 { color: var(--doge-gold); }
+.card-crypto .card-header h3 { color: var(--crypto-blue); }
+.card-daily .card-header h3 { color: #ff6b9d; }
+.card-elements .card-header h3 { color: #f97316; }
+
+/* 运势分数圆形 */
+.fortune-score {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.score-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    background: conic-gradient(var(--primary) 0deg, var(--secondary) 180deg, var(--accent) 360deg);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.1);
+    animation: score-rotate 3s linear infinite;
+}
+
+@keyframes score-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 运势详情 */
+.fortune-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fortune-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.fortune-item .label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.bar-container {
+    height: 8px;
+    background: rgba(26, 37, 85, 0.8);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.health { background: linear-gradient(90deg, #ff6b6b, #ff8787); }
+.love { background: linear-gradient(90deg, #ff006e, #ff69b4); }
+.career { background: linear-gradient(90deg, #00ff88, #00d084); }
+.social { background: linear-gradient(90deg, #ffbe0b, #ffd60a); }
+
+.fortune-item .value {
+    text-align: right;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* 财运解析 */
+.wealth-meter {
+    margin-bottom: 1.5rem;
+}
+
+.meter-bar {
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(90deg, 
+        #ff6b6b 0%,
+        #ffd60a 30%,
+        #ffbe0b 60%,
+        #00d084 100%);
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    margin-bottom: 0.8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.meter-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.wealth-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.wealth-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.wealth-item .label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.wealth-item .value {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.lucky-number {
+    color: var(--doge-gold);
+    font-size: 1.1rem;
+}
+
+.signal {
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.signal.bullish {
+    background: rgba(0, 208, 132, 0.2);
+    color: #00d084;
+}
+
+.signal.bearish {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+.signal.neutral {
+    background: rgba(255, 190, 11, 0.2);
+    color: #ffbe0b;
+}
+
+.direction {
+    color: var(--accent);
+    font-size: 1rem;
+}
+
+/* 土狗智慧 */
+.doge-level-display {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 140, 0, 0.1));
+    border-radius: 8px;
+    border: 1px solid var(--doge-gold);
+}
+
+.doge-level-display::before {
+    content: attr(data-level);
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.doge-insights {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.insight-box {
+    padding: 1rem;
+    background: rgba(26, 37, 85, 0.6);
+    border-left: 3px solid var(--doge-gold);
+    border-radius: 6px;
+}
+
+.insight-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--doge-gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.insight-box p {
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* 加密预言 */
+.crypto-predictions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.crypto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(30, 144, 255, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.crypto-item .label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.crypto-item .signal,
+.crypto-item .value {
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+}
+
+.doge-coin {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--doge-gold);
+}
+
+.stable-coin {
+    color: var(--crypto-blue);
+}
+
+.action {
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+/* 今日运程时间段 */
+.time-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.time-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(26, 37, 85, 0.6);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+}
+
+.time {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.rating {
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    background: rgba(255, 190, 11, 0.2);
+    color: var(--accent);
+    min-width: 60px;
+    text-align: center;
+}
+
+/* 五行元素 */
+.elements-chart {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.element {
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(26, 37, 85, 0.6);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.element:hover {
+    transform: translateY(-5px);
+}
+
+.element-icon {
+    font-size: 2rem;
+}
+
+.element-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.element-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(26, 37, 85, 0.8);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.element.metal .element-bar {
+    background: linear-gradient(90deg, #c0c0c0, #808080);
+}
+
+.element.wood .element-bar {
+    background: linear-gradient(90deg, #2d8659, #1fa345);
+}
+
+.element.water .element-bar {
+    background: linear-gradient(90deg, #1e90ff, #0066cc);
+}
+
+.element.fire .element-bar {
+    background: linear-gradient(90deg, #ff6b6b, #ff0000);
+}
+
+.element.earth .element-bar {
+    background: linear-gradient(90deg, #d4a574, #8b6914);
+}
+
+/* 操作部分 */
+.action-section {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* 信息部分 */
+.info-section {
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.info-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.info-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.info-card p {
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.features-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.feature {
+    padding: 0.8rem 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 6px;
+    color: var(--primary);
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: var(--primary);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-note {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* 动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .header-stats {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .input-group {
+        grid-template-columns: 1fr;
+    }
+
+    .elements-chart {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-section {
+        flex-direction: column;
+    }
+}
