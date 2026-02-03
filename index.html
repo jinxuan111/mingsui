@@ -366,7 +366,7 @@
                 <button onclick="calculateFortune()">开始推演</button>
             </div>
 
-            <!-- 结果面板（恢复Tab切换，币圈第一个，默认打开） -->
+            <!-- 结果面板 -->
             <div id="resultContainer" class="result-panel result-hidden">
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab(event, 'tab-crypto')">币圈·土狗运势</button>
@@ -655,37 +655,86 @@
                 const overall = fortune.fortuneIndices.overall;
                 const wx = fortune.dayMasterWuXing;
                 const strength = fortune.dayMasterStrength;
+                const balance = fortune.fortuneIndices.balance;
 
-                let advice = '币圈·土狗运势分析（纯娱乐，投资有风险）\n\n';
+                let advice = '🔥 币圈·土狗运势深度分析（纯娱乐，投资有风险） 🔥\n\n';
 
-                const wxStyle = {
-                    '木': '成长型项目，适合长线埋伏新叙事（如Layer2、AI链）',
-                    '火': '热点爆炒，今天容易短线吃肉（meme、热搜概念）',
-                    '土': '宜持蓝筹稳定币，土狗风险高（BTC/ETH为主）',
-                    '金': '高风险高收益，适合重仓梭哈潜力宝石',
-                    '水': '流动性强，适合快进快出波段（DEX、衍生品）'
+                const wxDetail = {
+                    '木': { style: '成长叙事型', recommend: 'Layer2、AI、RWA、游戏链', color: '绿色', number: '3、8' },
+                    '火': { style: '热点爆炒型', recommend: 'Meme、热搜概念、社交Fi', color: '红色', number: '2、7' },
+                    '土': { style: '稳健蓝筹型', recommend: 'BTC、ETH、平台币、矿币', color: '黄色', number: '5、10' },
+                    '金': { style: '高风险宝石型', recommend: '潜力100x、新公链、DeFi原始股', color: '白色', number: '4、9' },
+                    '水': { style: '快进快出型', recommend: 'DEX、衍生品、流动性挖矿', color: '黑色', number: '1、6' }
                 };
-                advice += `你的日主五行【${wx}】：${wxStyle[wx] || '灵活应变，随机应变'}\n\n`;
+                const detail = wxDetail[wx] || { style: '平衡灵活型', recommend: '多链布局', color: '多彩', number: '任意' };
 
-                if (wealth > 85 && overall > 75) {
-                    advice += '今日土狗运极佳！财星高照，贵人运爆棚！\n非常适合打土狗、上新、上所项目，容易吃到大肉！\n建议：重仓潜力 meme / 新叙事，敢梭哈敢暴富！\n记得见好就收，落袋为安！';
-                } else if (wealth > 70) {
-                    advice += '土狗运很不错，有小惊喜！\n今天适合打土狗，轻仓试水热点项目很容易吃肉。\n推荐关注 Solana/Base/BSC 新 meme，跟KOL走大概率盈利。\n策略：设置止盈止损，玩得开心。';
-                } else if (wealth > 50) {
-                    advice += '土狗运中等，市场震荡。\n可以小玩怡情，但不建议重仓打土狗。\n更适合埋伏蓝筹或老 meme，避免追高。\n耐心等回调再出手。';
-                } else if (wealth > 30) {
-                    advice += '土狗运偏弱，容易被割。\n今天不建议打新土狗，容易站岗。\n推荐观望或只用娱乐资金玩老项目。\n多学习，等待更好时机。';
+                advice += `你的日主五行【${wx}】\n`;
+                advice += `专属风格：${detail.style}\n`;
+                advice += `今日推荐板块：${detail.recommend}\n`;
+                advice += `幸运颜色：${detail.color} | 幸运数字：${detail.number}\n\n`;
+
+                let level, risk, position;
+                if (wealth >= 90) {
+                    level = '极佳（天赐良机）';
+                    risk = '低风险高回报';
+                    position = '可重仓（50-80%）';
+                } else if (wealth >= 80) {
+                    level = '旺盛（财星高照）';
+                    risk = '低风险';
+                    position = '可中重仓（30-60%）';
+                } else if (wealth >= 70) {
+                    level = '良好（贵人助力）';
+                    risk = '中低风险';
+                    position = '中仓位（20-40%）';
+                } else if (wealth >= 60) {
+                    level = '中等偏上（小有机会）';
+                    risk = '中等风险';
+                    position = '轻仓试水（10-25%）';
+                } else if (wealth >= 45) {
+                    level = '中等（震荡市）';
+                    risk = '中等偏高';
+                    position = '小仓怡情（≤10%）';
+                } else if (wealth >= 30) {
+                    level = '偏弱（易被割）';
+                    risk = '高风险';
+                    position = '不建议重仓，观望为主';
                 } else {
-                    advice += '今日土狗运很差，强烈不建议打土狗！\n容易接盘、被套，FOMO 必亏。\n建议持币休息，或只持 BTC/ETH 大币。\n耐心等大运到来，币圈最忌急躁。';
+                    level = '很差（凶星干扰）';
+                    risk = '极高风险';
+                    position = '强烈不建议操作';
                 }
 
-                advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）`;
+                advice += `今日土狗运势等级：${level}\n`;
+                advice += `风险等级：${risk}\n`;
+                advice += `建议仓位：${position}\n\n`;
 
-                if (strength > 70) {
-                    advice += '\n日主强势：你天生适合高风险操作，把握节奏易大成！';
-                } else if (strength < 40) {
-                    advice += '\n日主偏弱：建议保守策略，避免过度投机。';
+                advice += `详细解析：\n`;
+                if (wealth >= 80) {
+                    advice += '财运爆棚，容易吃大肉！今天上新、热meme、KOL带飞项目与你高度共振。\n建议大胆出击，但见好就收，落袋为安是王道！';
+                } else if (wealth >= 70) {
+                    advice += '土狗运不错，有惊喜机会！轻中仓位跟热点，容易小赚一波。\n关注社区情绪高、交易量爆发的新项目。';
+                } else if (wealth >= 60) {
+                    advice += '运势平稳，可小玩怡情。优先老项目或有基本面支撑的土狗，避免盲目FOMO。';
+                } else if (wealth >= 45) {
+                    advice += '市场震荡，土狗容易假突破。建议观望为主，只用娱乐资金尝试，避免追高。';
+                } else if (wealth >= 30) {
+                    advice += '运势偏弱，容易站岗。今日不宜重仓土狗，优先保住本金，等待更好时机。';
+                } else {
+                    advice += '凶星高照，土狗运极差！容易接盘、被套。强烈建议持币观望，或只持BTC/ETH大币。\n耐心等大运到来，币圈最忌急躁！';
                 }
+
+                advice += `\n\n日主强度影响（${strength}分）：\n`;
+                if (strength > 80) advice += '日主极旺，天生赌性强，适合高风险操作，把握节奏易大成！';
+                else if (strength > 60) advice += '日主较强，抗风险能力好，可适当加大仓位。';
+                else if (strength > 40) advice += '日主中等，建议稳健操作，控制仓位。';
+                else advice += '日主偏弱，风险承受力低，建议保守策略，避免过度投机。';
+
+                advice += `\n五行平衡度（${balance}/100）：\n`;
+                if (balance > 80) advice += '五行极平衡，决策理性，不易被情绪带动，适合长期布局。';
+                else if (balance > 60) advice += '五行较平衡，整体稳定，短期波动可控。';
+                else advice += '五行稍失衡，情绪易波动，建议多思考少冲动。';
+
+                advice += `\n\n今日财运指数：${wealth}/100（越高越适合投机）\n综合运势指数：${overall}/100\n\n⚠️ 以上纯属娱乐分析，加密市场风险极高，请理性投资，量力而行！`;
 
                 return advice;
             }
