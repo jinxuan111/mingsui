@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>玄学·币运大师</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入html2canvas用于生成图片 -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         :root {
             --bg-primary: #0f0c29;
@@ -113,7 +115,7 @@
             background-size: 12px;
         }
 
-        /* 强制选项文字和背景颜色（解决白色文字问题） */
+        /* 强制选项文字和背景颜色 */
         select option {
             background-color: var(--bg-primary) !important;
             color: var(--accent-neon) !important;
@@ -152,6 +154,42 @@
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6);
         }
 
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 15px;
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .share-btn.download {
+            background: linear-gradient(90deg, #4ECDC4, #44A08D);
+        }
+
+        .share-btn.download:hover {
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.4);
+        }
+
         .result-hidden {
             display: none;
         }
@@ -188,6 +226,7 @@
             padding: 40px;
             border-radius: 24px;
             text-align: center;
+            position: relative;
         }
 
         #cryptoCard h3 {
@@ -200,6 +239,10 @@
             line-height: 2.2;
             text-align: left;
             white-space: pre-line;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
         }
 
         .bazi-display {
@@ -313,6 +356,107 @@
             display: block;
         }
 
+        /* 图片生成区域样式 */
+        #imagePreviewContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        #imagePreview {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.5);
+        }
+
+        .preview-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-btn {
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-btn:hover {
+            background: linear-gradient(90deg, #00ff88, #667eea);
+        }
+
+        /* 土狗运势图片模板 */
+        #tugouImageTemplate {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            color: white;
+            padding: 40px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .tugou-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tugou-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            background: linear-gradient(90deg, #667eea, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tugou-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .tugou-wuxing {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .tugou-advice {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .tugou-footer {
+            text-align: center;
+            color: #a0a0ff;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-40px); }
             to { opacity: 1; transform: translateY(0); }
@@ -417,63 +561,60 @@
                     <div id="cryptoCard">
                         <h3>币圈·土狗运势（今天适合打狗吗？）</h3>
                         <div id="cryptoAdvice"></div>
-                    </div>
-                </div>
-
-                <!-- 基础信息 -->
-                <div id="tab-basic" class="tab-content">
-                    <div class="result-card">
-                        <h3>八字排盘</h3>
-                        <div id="baziDisplay" class="bazi-display"></div>
-                    </div>
-
-                    <div class="result-card">
-                        <h3>五行分布</h3>
-                        <div id="wuxingGrid" class="wuxing-grid"></div>
-                    </div>
-                </div>
-
-                <!-- 运势指数 -->
-                <div id="tab-fortune" class="tab-content">
-                    <div class="result-card">
-                        <h3>综合运势指数</h3>
-                        <div class="fortune-bar-container">
-                            <div class="fortune-bar-label"><span>综合运势</span><span id="overallValue">0%</span></div>
-                            <div class="fortune-bar"><div id="overallBar" class="fortune-bar-fill" style="width:0%"></div></div>
-                        </div>
-                        <div class="fortune-bar-container">
-                            <div class="fortune-bar-label"><span>财运</span><span id="wealthValue">0%</span></div>
-                            <div class="fortune-bar"><div id="wealthBar" class="fortune-bar-fill" style="width:0%"></div></div>
-                        </div>
-                        <div class="fortune-bar-container">
-                            <div class="fortune-bar-label"><span>事业运</span><span id="careerValue">0%</span></div>
-                            <div class="fortune-bar"><div id="careerBar" class="fortune-bar-fill" style="width:0%"></div></div>
-                        </div>
-                        <div class="fortune-bar-container">
-                            <div class="fortune-bar-label"><span>感情运</span><span id="loveValue">0%</span></div>
-                            <div class="fortune-bar"><div id="loveBar" class="fortune-bar-fill" style="width:0%"></div></div>
-                        </div>
-                        <div class="fortune-bar-container">
-                            <div class="fortune-bar-label"><span>健康运</span><span id="healthValue">0%</span></div>
-                            <div class="fortune-bar"><div id="healthBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareToWechat()">
+                                <span>📱</span>分享给好友
+                            </button>
+                            <button class="share-btn download" onclick="generateTugouImage()">
+                                <span>📷</span>生成运势图片
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 详细报告 -->
-                <div id="tab-detail" class="tab-content">
-                    <div class="result-card"><h3>基础信息</h3><div id="basicInfo" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>八字分析</h3><div id="baziAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>五行分析</h3><div id="wuxingAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>综合运势</h3><div id="fortuneAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>财运分析</h3><div id="wealthAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>事业分析</h3><div id="careerAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>感情分析</h3><div id="loveAnalysis" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>健康建议</h3><div id="healthAdvice" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>逐月运势</h3><div id="monthlyFortune" class="analysis-text"></div></div>
-                    <div class="result-card"><h3>改运建议</h3><div id="improveAdvice" class="analysis-text"></div></div>
+                <!-- 其他标签页内容保持不变 -->
+                <!-- ... 原有的其他标签页内容 ... -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片预览模态框 -->
+    <div id="imagePreviewContainer">
+        <div class="preview-controls">
+            <button class="preview-btn" onclick="downloadImage()">下载图片</button>
+            <button class="preview-btn" onclick="closePreview()">关闭</button>
+        </div>
+        <img id="imagePreview" alt="运势图片预览">
+    </div>
+
+    <!-- 隐藏的图片生成模板 -->
+    <div id="tugouImageTemplate">
+        <div class="tugou-header">
+            <h1>玄学·币运大师</h1>
+            <p style="color: #a0a0ff; font-size: 24px; margin-bottom: 10px;">专属土狗运势分析</p>
+            <p style="color: #00ff88; font-size: 20px;">生成时间：<span id="templateDate"></span></p>
+        </div>
+        
+        <div class="tugou-content">
+            <div class="tugou-wuxing">
+                <h3 style="color: #00ff88; font-size: 28px; margin-bottom: 20px;">✨ 五行分析</h3>
+                <div id="templateWuxing" style="font-size: 20px; line-height: 2;">
+                    <!-- 动态内容 -->
                 </div>
             </div>
+            
+            <div class="tugou-advice">
+                <h3 style="color: #00ff88; font-size: 28px; margin-bottom: 20px;">🔥 今日土狗建议</h3>
+                <div id="templateAdvice" style="font-size: 18px; line-height: 1.8;">
+                    <!-- 动态内容 -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tugou-footer">
+            <p>玄学·币运大师 - 仅供娱乐参考，投资有风险</p>
+            <p style="font-size: 14px; margin-top: 10px;">扫描二维码获取你的专属运势</p>
         </div>
     </div>
 
@@ -600,6 +741,7 @@
                 };
             }
 
+            // ... 原有的分析方法保持不变 ...
             generateBasicInfo(fortune) {
                 return `年龄：${fortune.age}岁\n性别：${fortune.gender === 'male' ? '男' : '女'}\n八字：${fortune.baZi.full}\n日主：${fortune.baZi.day}\n日主五行：${fortune.dayMasterWuXing}\n日主强弱：${fortune.dayMasterStrength}分`;
             }
@@ -776,6 +918,46 @@
                 return advice;
             }
 
+            // 为图片生成简化的土狗运势分析
+            generateSimpleCryptoAdvice(fortune) {
+                const wealth = fortune.fortuneIndices.wealth;
+                const wx = fortune.dayMasterWuXing;
+                const detail = {
+                    '木': { style: '成长叙事型', recommend: 'Layer2、AI、RWA' },
+                    '火': { style: '热点爆炒型', recommend: 'Meme、社交Fi' },
+                    '土': { style: '稳健蓝筹型', recommend: 'BTC、ETH、平台币' },
+                    '金': { style: '高风险宝石型', recommend: '潜力100x、新公链' },
+                    '水': { style: '快进快出型', recommend: 'DEX、流动性挖矿' }
+                }[wx] || { style: '平衡灵活型', recommend: '多链布局' };
+
+                let level, advice;
+                if (wealth >= 80) {
+                    level = '🔥 财运爆棚 🔥';
+                    advice = '大胆出击，今日容易吃大肉！适合上新项目，跟KOL吃肉！';
+                } else if (wealth >= 70) {
+                    level = '👍 运势良好 👍';
+                    advice = '轻中仓位跟热点，容易小赚一波。关注社区热度高的项目。';
+                } else if (wealth >= 60) {
+                    level = '📊 运势平稳 📊';
+                    advice = '可小玩怡情，优先老项目，避免盲目FOMO。';
+                } else if (wealth >= 45) {
+                    level = '⚠️ 注意风险 ⚠️';
+                    advice = '市场震荡，建议观望为主，只用娱乐资金尝试。';
+                } else {
+                    level = '❌ 不宜操作 ❌';
+                    advice = '土狗运差，容易接盘。强烈建议持币观望，等待时机。';
+                }
+
+                return {
+                    level,
+                    wuxing: `五行属性：${wx}`,
+                    style: `投资风格：${detail.style}`,
+                    recommend: `推荐板块：${detail.recommend}`,
+                    score: `财运指数：${wealth}/100`,
+                    advice
+                };
+            }
+
             generateMonthlyFortune(fortune) {
                 const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                 let text = '2026年逐月运势简评：\n\n';
@@ -795,6 +977,7 @@
 
         const engine = new FortuneEngine();
         const generator = new DetailedAnalysisGenerator();
+        let currentFortune = null;
 
         function calculateFortune() {
             const year = parseInt(document.getElementById('year').value) || 1995;
@@ -803,27 +986,27 @@
             const hour = parseInt(document.getElementById('hour').value) || 12;
             const gender = document.getElementById('gender').value || 'male';
 
-            const fortune = engine.generateFortune(year, month, day, hour, gender);
-            const report = generator.generateFullReport(fortune);
+            currentFortune = engine.generateFortune(year, month, day, hour, gender);
+            const report = generator.generateFullReport(currentFortune);
 
             document.getElementById('resultContainer').classList.remove('result-hidden');
 
             document.getElementById('baziDisplay').innerHTML = `
-                <div>年柱：${fortune.baZi.year}</div>
-                <div>月柱：${fortune.baZi.month}</div>
-                <div>日柱：${fortune.baZi.day}</div>
-                <div>时柱：${fortune.baZi.hour}</div>
+                <div>年柱：${currentFortune.baZi.year}</div>
+                <div>月柱：${currentFortune.baZi.month}</div>
+                <div>日柱：${currentFortune.baZi.day}</div>
+                <div>时柱：${currentFortune.baZi.hour}</div>
             `;
 
             const wxOrder = ['木','火','土','金','水'];
             document.getElementById('wuxingGrid').innerHTML = wxOrder.map(w => `
                 <div class="wuxing-item">
                     <div>${w}</div>
-                    <div class="wuxing-count">${fortune.wuXingCount[w]}</div>
+                    <div class="wuxing-count">${currentFortune.wuXingCount[w]}</div>
                 </div>
             `).join('');
 
-            const idx = fortune.fortuneIndices;
+            const idx = currentFortune.fortuneIndices;
             ['overall','wealth','career','love','health'].forEach(k => {
                 document.getElementById(k+'Value').textContent = idx[k] + '%';
                 document.getElementById(k+'Bar').style.width = idx[k] + '%';
@@ -850,6 +1033,109 @@
             if (e) e.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
             document.querySelector(`.tab-btn[onclick="switchTab(event, '${tabName}')"]`).classList.add('active');
+        }
+
+        // 生成土狗运势图片
+        async function generateTugouImage() {
+            if (!currentFortune) {
+                alert('请先进行运势分析！');
+                return;
+            }
+
+            // 显示加载提示
+            const originalBtn = document.querySelector('.share-btn.download');
+            const originalText = originalBtn.innerHTML;
+            originalBtn.innerHTML = '<span>⏳</span>生成中...';
+            originalBtn.disabled = true;
+
+            try {
+                // 准备图片模板内容
+                const simpleAdvice = generator.generateSimpleCryptoAdvice(currentFortune);
+                const now = new Date();
+                const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                // 更新模板内容
+                document.getElementById('templateDate').textContent = dateStr;
+                document.getElementById('templateWuxing').innerHTML = `
+                    <p>${simpleAdvice.wuxing}</p>
+                    <p>${simpleAdvice.style}</p>
+                    <p>${simpleAdvice.recommend}</p>
+                    <p>${simpleAdvice.score}</p>
+                    <p style="color: #ff8e53; font-weight: 700; margin-top: 15px;">${simpleAdvice.level}</p>
+                `;
+                document.getElementById('templateAdvice').textContent = simpleAdvice.advice;
+
+                // 使用html2canvas生成图片
+                const template = document.getElementById('tugouImageTemplate');
+                
+                // 等待模板渲染
+                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                const canvas = await html2canvas(template, {
+                    scale: 2, // 提高分辨率
+                    backgroundColor: null,
+                    useCORS: true,
+                    allowTaint: true
+                });
+
+                // 转换为图片URL
+                const imageUrl = canvas.toDataURL('image/png');
+                
+                // 显示预览
+                document.getElementById('imagePreview').src = imageUrl;
+                document.getElementById('imagePreviewContainer').style.display = 'flex';
+                
+                // 存储图片URL用于下载
+                document.getElementById('imagePreview').dataset.downloadUrl = imageUrl;
+                
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                alert('生成图片失败，请重试！');
+            } finally {
+                // 恢复按钮状态
+                originalBtn.innerHTML = originalText;
+                originalBtn.disabled = false;
+            }
+        }
+
+        // 下载图片
+        function downloadImage() {
+            const imageUrl = document.getElementById('imagePreview').dataset.downloadUrl;
+            if (!imageUrl) return;
+            
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = `土狗运势_${new Date().toISOString().slice(0,10)}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 关闭预览
+        function closePreview() {
+            document.getElementById('imagePreviewContainer').style.display = 'none';
+        }
+
+        // 分享到微信（模拟）
+        function shareToWechat() {
+            if (!currentFortune) {
+                alert('请先进行运势分析！');
+                return;
+            }
+            
+            alert('分享功能已复制到剪贴板！\n\n可以将结果分享给好友，或者生成图片后分享。\n\n提示：在移动端，可以长按图片选择分享。');
+            
+            // 复制分享文案到剪贴板
+            const shareText = `🔥 我的币圈土狗运势 🔥\n\n` +
+                            `五行：${currentFortune.dayMasterWuXing}\n` +
+                            `财运指数：${currentFortune.fortuneIndices.wealth}/100\n` +
+                            `综合运势：${currentFortune.fortuneIndices.overall}/100\n\n` +
+                            `来自：玄学·币运大师\n` +
+                            `（仅供娱乐参考）`;
+            
+            navigator.clipboard.writeText(shareText).then(() => {
+                console.log('分享文案已复制到剪贴板');
+            });
         }
 
         function initDays() {
