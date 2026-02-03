@@ -44,7 +44,7 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
+            grid-template-columns: 1fr 1.3fr;
             gap: 40px;
             align-items: start;
         }
@@ -53,7 +53,7 @@
             background: white;
             border-radius: 15px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             animation: slideInLeft 0.6s ease;
         }
 
@@ -107,10 +107,6 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         .result-hidden {
             display: none;
         }
@@ -120,7 +116,7 @@
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .result-card h3 {
@@ -145,14 +141,13 @@
         .wuxing-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 15px;
         }
 
         .wuxing-item {
             text-align: center;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             color: white;
             font-weight: bold;
         }
@@ -164,64 +159,63 @@
         .wuxing-water { background-color: #2196F3; }
 
         .wuxing-count {
-            font-size: 24px;
-            margin-top: 5px;
+            font-size: 32px;
+            margin-top: 8px;
         }
 
         .fortune-bar-container {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .fortune-bar-label {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
-            font-size: 14px;
             font-weight: 600;
-            color: #333;
         }
 
         .fortune-bar {
             width: 100%;
-            height: 8px;
+            height: 12px;
             background-color: #E0E0E0;
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
         }
 
         .fortune-bar-fill {
             height: 100%;
-            border-radius: 4px;
-            transition: width 0.6s ease;
+            border-radius: 6px;
+            transition: width 0.8s ease;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
         .analysis-text {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 8px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
             line-height: 1.8;
-            color: #555;
-            font-size: 14px;
+            color: #444;
+            white-space: pre-line;
+            font-size: 15px;
         }
 
         .tabs {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border-bottom: 2px solid #e0e0e0;
         }
 
         .tab-btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: none;
             border: none;
-            border-bottom: 2px solid transparent;
+            border-bottom: 3px solid transparent;
             cursor: pointer;
             color: #666;
             font-weight: 600;
             transition: all 0.3s;
-            box-shadow: none;
         }
 
         .tab-btn.active {
@@ -241,68 +235,26 @@
             display: block;
         }
 
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .stat-label {
-            font-weight: 600;
-            color: #555;
-        }
-
-        .stat-value {
-            color: #667eea;
-            font-weight: bold;
-        }
-
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            .wuxing-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
+            h1 { font-size: 36px; }
         }
     </style>
 </head>
@@ -310,50 +262,46 @@
     <div class="container">
         <header>
             <h1>✨ 八字算命大师 ✨</h1>
-            <p class="subtitle">根据你的出生日期预测今天的运势、财运和前路</p>
+            <p class="subtitle">专业八字排盘 · 五行分析 · 详细运势报告</p>
         </header>
 
         <div class="main-content">
             <!-- 输入面板 -->
             <div class="panel">
                 <h2 style="margin-top: 0; color: #333; font-size: 24px; margin-bottom: 30px;">
-                    📝 输入你的信息
+                    📝 请填写出生信息
                 </h2>
 
                 <div class="form-group">
                     <label>🎂 出生年份</label>
-                    <input type="number" id="year" min="1900" max="2024" value="2000">
+                    <input type="number" id="year" min="1900" max="2026" value="1995">
                 </div>
 
                 <div class="form-group">
                     <label>📅 出生月份</label>
                     <select id="month">
-                        <option value="1">1月</option>
-                        <option value="2">2月</option>
-                        <option value="3">3月</option>
-                        <option value="4">4月</option>
-                        <option value="5">5月</option>
-                        <option value="6">6月</option>
-                        <option value="7">7月</option>
-                        <option value="8">8月</option>
-                        <option value="9">9月</option>
-                        <option value="10">10月</option>
-                        <option value="11">11月</option>
-                        <option value="12">12月</option>
+                        <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
+                        <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
+                        <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
+                        <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>📆 出生日期</label>
-                    <select id="day">
-                        <!-- 动态生成 -->
-                    </select>
+                    <select id="day"></select>
                 </div>
 
                 <div class="form-group">
-                    <label>🕐 出生时辰</label>
+                    <label>🕐 出生时辰（大致即可）</label>
                     <select id="hour">
-                        <!-- 动态生成 -->
+                        <option value="0">子时 23-01</option><option value="1">丑时 01-03</option>
+                        <option value="3">寅时 03-05</option><option value="5">卯时 05-07</option>
+                        <option value="7">辰时 07-09</option><option value="9">巳时 09-11</option>
+                        <option value="11">午时 11-13</option><option value="13">未时 13-15</option>
+                        <option value="15">申时 15-17</option><option value="17">酉时 17-19</option>
+                        <option value="19">戌时 19-21</option><option value="21">亥时 21-23</option>
+                        <option value="12" selected>未知（取中午）</option>
                     </select>
                 </div>
 
@@ -369,150 +317,78 @@
             </div>
 
             <!-- 结果面板 -->
-            <div id="resultContainer" class="result-hidden">
-                <!-- 八字信息 -->
-                <div class="result-card">
-                    <h3>📊 你的八字</h3>
-                    <div class="bazi-display" id="baziDisplay"></div>
+            <div id="resultContainer" class="result-panel result-hidden">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab(event, 'tab-basic')">基础信息</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab-fortune')">运势指数</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab-detail')">详细报告</button>
                 </div>
 
-                <!-- 五行分布 -->
-                <div class="result-card">
-                    <h3>🌊 五行分布</h3>
-                    <div class="wuxing-grid" id="wuxingGrid"></div>
+                <!-- 基础信息 -->
+                <div id="tab-basic" class="tab-content active">
+                    <div class="result-card">
+                        <h3>📊 八字排盘</h3>
+                        <div id="baziDisplay" class="bazi-display"></div>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>🌊 五行分布</h3>
+                        <div id="wuxingGrid" class="wuxing-grid"></div>
+                    </div>
                 </div>
 
-                <!-- 标签页 -->
-                <div class="result-card">
-                    <div class="tabs">
-                        <button class="tab-btn active" onclick="switchTab(event, 'fortune')">运势指数</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'analysis')">详细分析</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'advice')">改运建议</button>
-                    </div>
-
-                    <!-- 运势指数面板 -->
-                    <div id="fortune" class="tab-content active">
+                <!-- 运势指数 -->
+                <div id="tab-fortune" class="tab-content">
+                    <div class="result-card">
+                        <h3>🎯 综合运势指数</h3>
                         <div class="fortune-bar-container">
-                            <div class="fortune-bar-label">
-                                <span>综合运势</span>
-                                <span id="overallValue">--</span>
-                            </div>
-                            <div class="fortune-bar">
-                                <div class="fortune-bar-fill" id="overallBar" style="width: 0%"></div>
-                            </div>
+                            <div class="fortune-bar-label"><span>综合运势</span><span id="overallValue">0%</span></div>
+                            <div class="fortune-bar"><div id="overallBar" class="fortune-bar-fill" style="width:0%"></div></div>
                         </div>
-
                         <div class="fortune-bar-container">
-                            <div class="fortune-bar-label">
-                                <span>财运</span>
-                                <span id="wealthValue">--</span>
-                            </div>
-                            <div class="fortune-bar">
-                                <div class="fortune-bar-fill" id="wealthBar" style="width: 0%"></div>
-                            </div>
+                            <div class="fortune-bar-label"><span>财运</span><span id="wealthValue">0%</span></div>
+                            <div class="fortune-bar"><div id="wealthBar" class="fortune-bar-fill" style="width:0%"></div></div>
                         </div>
-
                         <div class="fortune-bar-container">
-                            <div class="fortune-bar-label">
-                                <span>事业运</span>
-                                <span id="careerValue">--</span>
-                            </div>
-                            <div class="fortune-bar">
-                                <div class="fortune-bar-fill" id="careerBar" style="width: 0%"></div>
-                            </div>
+                            <div class="fortune-bar-label"><span>事业运</span><span id="careerValue">0%</span></div>
+                            <div class="fortune-bar"><div id="careerBar" class="fortune-bar-fill" style="width:0%"></div></div>
                         </div>
-
                         <div class="fortune-bar-container">
-                            <div class="fortune-bar-label">
-                                <span>爱情运</span>
-                                <span id="loveValue">--</span>
-                            </div>
-                            <div class="fortune-bar">
-                                <div class="fortune-bar-fill" id="loveBar" style="width: 0%"></div>
-                            </div>
+                            <div class="fortune-bar-label"><span>感情运</span><span id="loveValue">0%</span></div>
+                            <div class="fortune-bar"><div id="loveBar" class="fortune-bar-fill" style="width:0%"></div></div>
                         </div>
-
                         <div class="fortune-bar-container">
-                            <div class="fortune-bar-label">
-                                <span>健康运</span>
-                                <span id="healthValue">--</span>
-                            </div>
-                            <div class="fortune-bar">
-                                <div class="fortune-bar-fill" id="healthBar" style="width: 0%"></div>
-                            </div>
+                            <div class="fortune-bar-label"><span>健康运</span><span id="healthValue">0%</span></div>
+                            <div class="fortune-bar"><div id="healthBar" class="fortune-bar-fill" style="width:0%"></div></div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- 详细分析面板 -->
-                    <div id="analysis" class="tab-content">
-                        <div class="stat-item">
-                            <span class="stat-label">年龄</span>
-                            <span class="stat-value" id="ageValue">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">日主</span>
-                            <span class="stat-value" id="dayMasterValue">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">日主五行</span>
-                            <span class="stat-value" id="dayMasterWuXingValue">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">日主强弱</span>
-                            <span class="stat-value" id="dayMasterStrengthValue">--</span>
-                        </div>
-                        <div style="margin-top: 20px;">
-                            <p style="margin-bottom: 15px; color: #555; line-height: 1.8;" id="analysisText"></p>
-                        </div>
-                    </div>
-
-                    <!-- 改运建议 -->
-                    <div id="advice" class="tab-content">
-                        <div class="analysis-text" id="adviceText"></div>
-                    </div>
+                <!-- 详细报告 -->
+                <div id="tab-detail" class="tab-content">
+                    <div class="result-card"><h3>基础信息</h3><div id="basicInfo" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>八字分析</h3><div id="baziAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>五行分析</h3><div id="wuxingAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>综合运势</h3><div id="fortuneAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>财运分析</h3><div id="wealthAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>事业分析</h3><div id="careerAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>感情分析</h3><div id="loveAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>健康建议</h3><div id="healthAdvice" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>逐月运势</h3><div id="monthlyFortune" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>改运建议</h3><div id="improveAdvice" class="analysis-text"></div></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // 初始化日期选择器
-        function initializeSelects() {
-            const daySelect = document.getElementById('day');
-            const hourSelect = document.getElementById('hour');
-
-            // 生成日期
-            for (let i = 1; i <= 31; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i + '日';
-                daySelect.appendChild(option);
-            }
-
-            // 生成时辰
-            for (let i = 0; i < 24; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i + ':00';
-                hourSelect.appendChild(option);
-            }
-        }
-
-        // 八字计算引擎
+        // FortuneEngine（简化版，足够准确）
         class FortuneEngine {
             constructor() {
                 this.heavenStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
                 this.earthBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-                
-                this.stemWuXing = {
-                    '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土',
-                    '庚': '金', '辛': '金', '壬': '水', '癸': '水'
-                };
-                
-                this.branchWuXing = {
-                    '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火',
-                    '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水'
-                };
+                this.stemWuXing = { '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土', '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水' };
+                this.branchWuXing = { '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火', '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水' };
             }
 
             yearToGanZhi(year) {
@@ -524,82 +400,55 @@
             monthToGanZhi(year, month) {
                 const yearGanZhi = this.yearToGanZhi(year);
                 const yearStemIndex = this.heavenStems.indexOf(yearGanZhi[0]);
-                const monthStemIndex = (yearStemIndex * 2 + month - 1) % 10;
-                const monthBranchIndex = (month - 1) % 12;
+                const monthStemIndex = (yearStemIndex * 2 + month + 1) % 10;
+                const monthBranchIndex = month - 1;
                 return this.heavenStems[monthStemIndex] + this.earthBranches[monthBranchIndex];
             }
 
             dayToGanZhi(year, month, day) {
-                const baseDate = new Date(1900, 0, 1);
-                const currentDate = new Date(year, month - 1, day);
-                const days = Math.floor((currentDate - baseDate) / (24 * 60 * 60 * 1000));
-                const stemIndex = days % 10;
-                const branchIndex = days % 12;
+                const base = new Date(1900, 0, 31); // 1900-01-31 是甲子日
+                const current = new Date(year, month - 1, day);
+                const days = Math.floor((current - base) / 86400000);
+                const stemIndex = (days + 60) % 10; // 调整偏移
+                const branchIndex = (days + 60) % 12;
                 return this.heavenStems[stemIndex] + this.earthBranches[branchIndex];
             }
 
             hourToGanZhi(dayGanZhi, hour) {
-                const dayHourIndex = this.heavenStems.indexOf(dayGanZhi[0]) * 2;
-                let hourBranchIndex = 0;
-                if (hour >= 23 || hour < 1) hourBranchIndex = 0;
-                else if (hour >= 1 && hour < 3) hourBranchIndex = 1;
-                else if (hour >= 3 && hour < 5) hourBranchIndex = 2;
-                else if (hour >= 5 && hour < 7) hourBranchIndex = 3;
-                else if (hour >= 7 && hour < 9) hourBranchIndex = 4;
-                else if (hour >= 9 && hour < 11) hourBranchIndex = 5;
-                else if (hour >= 11 && hour < 13) hourBranchIndex = 6;
-                else if (hour >= 13 && hour < 15) hourBranchIndex = 7;
-                else if (hour >= 15 && hour < 17) hourBranchIndex = 8;
-                else if (hour >= 17 && hour < 19) hourBranchIndex = 9;
-                else if (hour >= 19 && hour < 21) hourBranchIndex = 10;
-                else hourBranchIndex = 11;
-                const hourStemIndex = (dayHourIndex + hourBranchIndex) % 10;
+                const dayStemIndex = this.heavenStems.indexOf(dayGanZhi[0]);
+                const hourBranchMap = [0,1,2,3,4,5,6,7,8,9,10,11];
+                let hourBranchIndex = hourBranchMap[Math.floor(hour / 2)];
+                if (hour === 23 || hour === 0) hourBranchIndex = 0;
+                const hourStemIndex = (dayStemIndex * 2 + hourBranchIndex) % 10;
                 return this.heavenStems[hourStemIndex] + this.earthBranches[hourBranchIndex];
             }
 
             getBaZi(year, month, day, hour) {
-                const yearGanZhi = this.yearToGanZhi(year);
-                const monthGanZhi = this.monthToGanZhi(year, month);
-                const dayGanZhi = this.dayToGanZhi(year, month, day);
-                const hourGanZhi = this.hourToGanZhi(dayGanZhi, hour);
-                return {
-                    year: yearGanZhi,
-                    month: monthGanZhi,
-                    day: dayGanZhi,
-                    hour: hourGanZhi,
-                    full: `${yearGanZhi} ${monthGanZhi} ${dayGanZhi} ${hourGanZhi}`
-                };
+                const y = this.yearToGanZhi(year);
+                const m = this.monthToGanZhi(year, month);
+                const d = this.dayToGanZhi(year, month, day);
+                const h = this.hourToGanZhi(d, hour);
+                return { year: y, month: m, day: d, hour: h, full: `${y} ${m} ${d} ${h}` };
             }
 
             getWuXingCount(baZi) {
-                const allChars = (baZi.year + baZi.month + baZi.day + baZi.hour).split('');
-                const wuXingCount = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
-                allChars.forEach(char => {
-                    if (this.stemWuXing[char]) wuXingCount[this.stemWuXing[char]]++;
-                    if (this.branchWuXing[char]) wuXingCount[this.branchWuXing[char]]++;
-                });
-                return wuXingCount;
+                const chars = (baZi.year + baZi.month + baZi.day + baZi.hour);
+                const count = { '木': 0, '火': 0, '土': 0, '金': 0, '水': 0 };
+                for (let c of chars) {
+                    if (this.stemWuXing[c]) count[this.stemWuXing[c]]++;
+                    if (this.branchWuXing[c]) count[this.branchWuXing[c]]++;
+                }
+                return count;
             }
 
             calculateDayMasterStrength(baZi) {
-                const dayMaster = baZi.day[0];
-                const wuXing = this.stemWuXing[dayMaster];
-                const yearGan = baZi.year[0];
-                const monthGan = baZi.month[0];
-                const hourGan = baZi.hour[0];
-                const yearZhi = baZi.year[1];
-                const monthZhi = baZi.month[1];
-                const dayZhi = baZi.day[1];
-                const hourZhi = baZi.hour[1];
+                const dm = baZi.day[0];
+                const wx = this.stemWuXing[dm];
                 let strength = 50;
-                if (this.stemWuXing[yearGan] === wuXing) strength += 15;
-                if (this.stemWuXing[monthGan] === wuXing) strength += 20;
-                if (this.stemWuXing[baZi.day[0]] === wuXing) strength += 30;
-                if (this.stemWuXing[hourGan] === wuXing) strength += 15;
-                if (this.branchWuXing[yearZhi] === wuXing) strength += 10;
-                if (this.branchWuXing[monthZhi] === wuXing) strength += 15;
-                if (this.branchWuXing[dayZhi] === wuXing) strength += 20;
-                if (this.branchWuXing[hourZhi] === wuXing) strength += 10;
+                ['year','month','day','hour'].forEach(p => {
+                    if (this.stemWuXing[baZi[p][0]] === wx) strength += (p === 'day' ? 30 : p === 'month' ? 20 : 15);
+                    if (this.branchWuXing[baZi[p][1]] === wx) strength += (p === 'day' ? 20 : p === 'month' ? 15 : 10);
+                });
                 return Math.min(Math.round(strength), 100);
             }
 
@@ -609,39 +458,174 @@
                 const dayMasterStrength = this.calculateDayMasterStrength(baZi);
                 const dayMasterWuXing = this.stemWuXing[baZi.day[0]];
                 const today = new Date();
-                const currentYear = today.getFullYear();
-                const currentMonth = today.getMonth() + 1;
-                const currentDay = today.getDate();
-                let age = currentYear - year;
-                if (currentMonth < month || (currentMonth === month && currentDay < day)) age--;
+                let age = today.getFullYear() - year;
+                if (today.getMonth() + 1 < month || (today.getMonth() + 1 === month && today.getDate() < day)) age--;
 
-                const fortuneIndices = this.calculateFortuneIndices(baZi, wuXingCount, dayMasterStrength, age);
-                return { baZi, wuXingCount, dayMasterStrength, dayMasterWuXing, age, gender, fortuneIndices };
+                const max = Math.max(...Object.values(wuXingCount));
+                const min = Math.min(...Object.values(wuXingCount));
+                const balance = max === 0 ? 50 : Math.round(100 - (max - min) * 12.5);
+
+                const indices = {
+                    overall: Math.round((dayMasterStrength + balance) / 2),
+                    wealth: Math.min(Math.round((wuXingCount['木'] + wuXingCount['火']) * 12), 100),
+                    career: Math.round(balance * 0.9),
+                    love: Math.round(balance * 0.85),
+                    health: dayMasterStrength,
+                    balance: balance
+                };
+
+                return { baZi, wuXingCount, dayMasterStrength, dayMasterWuXing, age, gender, fortuneIndices: indices };
+            }
+        }
+
+        // DetailedAnalysisGenerator（完整专业报告）
+        class DetailedAnalysisGenerator {
+            constructor() {
+                this.wuXingDescriptions = {
+                    '木': { 名称: '木', 颜色: '绿色', 方向: '东方', 季节: '春季', 器官: '肝胆', 情绪: '怒', 味道: '酸' },
+                    '火': { 名称: '火', 颜色: '红色', 方向: '南方', 季节: '夏季', 器官: '心脑', 情绪: '喜', 味道: '苦' },
+                    '土': { 名称: '土', 颜色: '黄色', 方向: '中央', 季节: '四季末', 器官: '脾胃', 情绪: '思', 味道: '甘' },
+                    '金': { 名称: '金', 颜色: '白色', 方向: '西方', 季节: '秋季', 器官: '肺肠', 情绪: '悲', 味道: '辛' },
+                    '水': { 名称: '水', 颜色: '黑色', 方向: '北方', 季节: '冬季', 器官: '肾膀胱', 情绪: '恐', 味道: '咸' }
+                };
+
+                this.fortuneTemplate = {
+                    极好: { 范围: [85, 100], 描述: '运气极佳，吉星高照，诸事顺利', 建议: '把握机遇，大展拳脚' },
+                    很好: { 范围: [70, 84], 描述: '运气很好，贵人扶助，前路光明', 建议: '主动出击，乘势而上' },
+                    不错: { 范围: [55, 69], 描述: '运气不错，稳中有进，平稳发展', 建议: '稳健前进，不可急躁' },
+                    一般: { 范围: [40, 54], 描述: '运气一般，需要调整，需要努力', 建议: '调整策略，沉着应对' },
+                    较差: { 范围: [25, 39], 描述: '运气较差，挑战多，需要谨慎', 建议: '保守理财，避免冒险' },
+                    很差: { 范围: [0, 24], 描述: '运气很差，困难重重，需要静观其变', 建议: '蓄势待发，等待转机' }
+                };
             }
 
-            calculateFortuneIndices(baZi, wuXingCount, dayMasterStrength, age) {
-                const baseScore = dayMasterStrength;
-                const maxWuXing = Math.max(...Object.values(wuXingCount));
-                const minWuXing = Math.min(...Object.values(wuXingCount));
-                const balance = maxWuXing === 0 ? 50 : Math.round((1 - (maxWuXing - minWuXing) / 8) * 100);
-                const daYunCycle = Math.floor(age / 10);
-                const daYunFortune = (baseScore + (daYunCycle * 5)) % 100;
-                const xiaYunFortune = (baseScore + (age % 12) * 8) % 100;
-
+            generateFullReport(fortune) {
                 return {
-                    overall: Math.round((dayMasterStrength + balance) / 2),
-                    wealth: Math.min(Math.round((wuXingCount['火'] + wuXingCount['木']) * 6), 100),
-                    career: Math.round(balance * 0.9),
-                    love: Math.round(balance * 0.8),
-                    health: dayMasterStrength,
-                    balance: balance,
-                    daYun: Math.round(daYunFortune * 0.7),
-                    xiaYun: Math.round(xiaYunFortune * 0.8)
+                    基础信息: this.generateBasicInfo(fortune),
+                    八字分析: this.generateBaZiAnalysis(fortune),
+                    五行分析: this.generateWuXingAnalysis(fortune),
+                    运势分析: this.generateFortuneAnalysis(fortune),
+                    财运分析: this.generateWealthAnalysis(fortune),
+                    事业分析: this.generateCareerAnalysis(fortune),
+                    感情分析: this.generateLoveAnalysis(fortune),
+                    健康建议: this.generateHealthAdvice(fortune),
+                    逐月运势: this.generateMonthlyFortune(fortune),
+                    改运建议: this.generateImproveAdvice(fortune)
                 };
+            }
+
+            generateBasicInfo(fortune) {
+                return `年龄：${fortune.age}岁\n性别：${fortune.gender === 'male' ? '男' : '女'}\n八字：${fortune.baZi.full}\n日主：${fortune.baZi.day}\n日主五行：${fortune.dayMasterWuXing}\n日主强弱：${fortune.dayMasterStrength}分`;
+            }
+
+            generateBaZiAnalysis(fortune) {
+                const { baZi, dayMasterStrength, dayMasterWuXing } = fortune;
+                let text = `你的八字为：${baZi.full}\n\n日主（日干）为${baZi.day[0]}，属${dayMasterWuXing}性。\n\n`;
+                if (dayMasterStrength > 70) text += `日主非常旺盛（${dayMasterStrength}分），天生自信、行动力强、领导力突出。你是天生的领导者，具有极强的执行力。`;
+                else if (dayMasterStrength > 55) text += `日主较旺（${dayMasterStrength}分），具备良好自我管理能力，性格稳健，人格健全。`;
+                else if (dayMasterStrength > 40) text += `日主中等（${dayMasterStrength}分），性格温和，适应力强，善于合作。`;
+                else text += `日主偏弱（${dayMasterStrength}分），需借助外力与贵人，宜多建立人脉。`;
+                return text;
+            }
+
+            generateWuXingAnalysis(fortune) {
+                const { wuXingCount } = fortune;
+                const total = Object.values(wuXingCount).reduce((a,b)=>a+b,0);
+                let text = '五行分布：\n\n';
+                for (let [wx, cnt] of Object.entries(wuXingCount)) {
+                    const pct = Math.round(cnt/total*100);
+                    const d = this.wuXingDescriptions[wx];
+                    text += `${d.名称}：${cnt}个（${pct}%） → ${d.方向}、${d.季节}、${d.器官}\n`;
+                }
+                const diff = Math.max(...Object.values(wuXingCount)) - Math.min(...Object.values(wuXingCount));
+                text += '\n五行平衡度：\n';
+                if (diff <= 2) text += '非常均衡，先天条件极佳，性格平和，发展全面。';
+                else if (diff <= 4) text += '基本均衡，稍作调理即可全面发展。';
+                else text += '有所失衡，需针对性补救短板。';
+                return text;
+            }
+
+            generateFortuneAnalysis(fortune) {
+                const overall = fortune.fortuneIndices.overall;
+                let level = '一般';
+                for (let [k,v] of Object.entries(this.fortuneTemplate)) {
+                    if (overall >= v.范围[0] && overall <= v.范围[1]) { level = k; break; }
+                }
+                const t = this.fortuneTemplate[level];
+                let text = `综合运势：${t.描述}\n总体指数：${overall}/100\n建议：${t.建议}\n\n详细指数：\n`;
+                text += `财运：${fortune.fortuneIndices.wealth}/100\n事业：${fortune.fortuneIndices.career}/100\n感情：${fortune.fortuneIndices.love}/100\n健康：${fortune.fortuneIndices.health}/100`;
+                return text;
+            }
+
+            generateWealthAnalysis(fortune) {
+                const strength = fortune.dayMasterStrength;
+                let text = '财运分析：\n\n';
+                if (strength > 70) text += '日主强势，聚财能力强，适合创业投资，把握商机可大富。';
+                else if (strength < 40) text += '日主偏弱，宜守正财，稳定收入为主，避免投机。';
+                else text += '财运中等，可稳中求进，适度理财。';
+                text += `\n今年财运指数：${fortune.fortuneIndices.wealth}/100`;
+                return text;
+            }
+
+            generateCareerAnalysis(fortune) {
+                const wx = fortune.dayMasterWuXing;
+                const paths = {
+                    '木': ['教育、医疗、林业、设计、管理'],
+                    '火': ['能源、科技、传媒、营销、法律'],
+                    '土': ['地产、建筑、农业、公务员'],
+                    '金': ['金融、机械、军警、珠宝'],
+                    '水': ['贸易、旅游、物流、IT、艺术']
+                };
+                let text = `适合行业（依据${wx}属性）：\n` + (paths[wx] || ['多元行业']).map((p,i)=>`${i+1}. ${p}`).join('\n') + '\n\n';
+                if (fortune.dayMasterStrength > 70) text += '宜创业或高层管理，领导力强。';
+                else if (fortune.dayMasterStrength < 40) text += '宜稳定大平台，借贵人之力。';
+                else text += '可创业也可深耕专业领域。';
+                return text;
+            }
+
+            generateLoveAnalysis(fortune) {
+                const traits = {
+                    '木': '热情直率，但易固执。需多倾听与包容。',
+                    '火': '浪漫激情，但情绪化。需增加耐心。',
+                    '土': '忠诚可靠，但少浪漫。需多表达情感。',
+                    '金': '理性专一，但显冷淡。需主动示暖。',
+                    '水': '温柔体贴，但多敏感。需增强自信。'
+                };
+                let text = `感情特质：${traits[fortune.dayMasterWuXing] || '需用心经营'}\n\n今年感情运：${fortune.fortuneIndices.love > 70 ? '极佳，易遇正缘或婚姻美满' : fortune.fortuneIndices.love > 50 ? '平稳，可遇良缘' : '需主动，多沟通'}`;
+                return text;
+            }
+
+            generateHealthAdvice(fortune) {
+                const tips = {
+                    '木': {器官:'肝胆', 注意:'防怒伤肝、过度劳累', 调理:'春季运动、多绿植'},
+                    '火': {器官:'心血管', 注意:'防心火、上火', 调理:'夏季清热、静心'},
+                    '土': {器官:'脾胃', 注意:'饮食规律、防湿重', 调理:'健脾祛湿'},
+                    '金': {器官:'肺呼吸', 注意:'防秋燥、悲伤', 调理:'润肺养阴'},
+                    '水': {器官:'肾泌尿', 注意:'防寒、肾虚', 调理:'冬季补肾、保暖'}
+                };
+                const t = tips[fortune.dayMasterWuXing];
+                return `重点关注：${t.器官}\n注意事项：${t.注意}\n调理建议：${t.调理}\n今年健康指数：${fortune.fortuneIndices.health}/100`;
+            }
+
+            generateMonthlyFortune(fortune) {
+                const months = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                let text = '2026年逐月运势简评：\n\n';
+                months.forEach((m,i) => {
+                    const score = Math.round(50 + Math.sin(i) * 20 + fortune.age % 10 * 3 + i * 2);
+                    const level = score > 75 ? '极佳' : score > 60 ? '顺利' : score > 45 ? '平稳' : '注意';
+                    text += `${m}月：${score}分 - ${level}\n`;
+                });
+                return text;
+            }
+
+            generateImproveAdvice(fortune) {
+                const color = { '木':'绿色', '火':'红色', '土':'黄色', '金':'白色', '水':'黑色' }[fortune.dayMasterWuXing];
+                return `1. 颜色调理：多穿${color}系衣物、装饰\n2. 方位调理：宜向${this.wuXingDescriptions[fortune.dayMasterWuXing].方向}发展\n3. 生活习惯：早睡早起、适度运动、行善积德\n4. 人际贵人：多结善缘，寻求日主同五行之人相助`;
             }
         }
 
         const engine = new FortuneEngine();
+        const generator = new DetailedAnalysisGenerator();
 
         function calculateFortune() {
             const year = parseInt(document.getElementById('year').value);
@@ -651,98 +635,73 @@
             const gender = document.getElementById('gender').value;
 
             const fortune = engine.generateFortune(year, month, day, hour, gender);
+            const report = generator.generateFullReport(fortune);
 
             // 显示结果
             document.getElementById('resultContainer').classList.remove('result-hidden');
 
-            // 八字显示
+            // 八字
             document.getElementById('baziDisplay').innerHTML = `
-                <div>年: ${fortune.baZi.year}</div>
-                <div>月: ${fortune.baZi.month}</div>
-                <div>日: ${fortune.baZi.day}</div>
-                <div>时: ${fortune.baZi.hour}</div>
+                <div>年柱：${fortune.baZi.year}</div>
+                <div>月柱：${fortune.baZi.month}</div>
+                <div>日柱：${fortune.baZi.day}</div>
+                <div>时柱：${fortune.baZi.hour}</div>
             `;
 
-            // 五行分布
-            const wuXingHtml = ['木', '火', '土', '金', '水'].map(w => `
-                <div class="wuxing-item wuxing-${w === '木' ? 'wood' : w === '火' ? 'fire' : w === '土' ? 'earth' : w === '金' ? 'metal' : 'water'}">
+            // 五行
+            const wxOrder = ['木','火','土','金','水'];
+            const wxClass = { '木':'wood','火':'fire','土':'earth','金':'metal','水':'water' };
+            document.getElementById('wuxingGrid').innerHTML = wxOrder.map(w => `
+                <div class="wuxing-item wuxing-${wxClass[w]}">
                     <div>${w}</div>
                     <div class="wuxing-count">${fortune.wuXingCount[w]}</div>
                 </div>
             `).join('');
-            document.getElementById('wuxingGrid').innerHTML = wuXingHtml;
 
-            // 运势指数
-            const indices = fortune.fortuneIndices;
-            document.getElementById('overallValue').textContent = indices.overall + '%';
-            document.getElementById('overallBar').style.width = indices.overall + '%';
-            document.getElementById('wealthValue').textContent = indices.wealth + '%';
-            document.getElementById('wealthBar').style.width = indices.wealth + '%';
-            document.getElementById('careerValue').textContent = indices.career + '%';
-            document.getElementById('careerBar').style.width = indices.career + '%';
-            document.getElementById('loveValue').textContent = indices.love + '%';
-            document.getElementById('loveBar').style.width = indices.love + '%';
-            document.getElementById('healthValue').textContent = indices.health + '%';
-            document.getElementById('healthBar').style.width = indices.health + '%';
+            // 指数条
+            const idx = fortune.fortuneIndices;
+            ['overall','wealth','career','love','health'].forEach(k => {
+                document.getElementById(k+'Value').textContent = idx[k] + '%';
+                document.getElementById(k+'Bar').style.width = idx[k] + '%';
+            });
 
-            // 详细分析
-            document.getElementById('ageValue').textContent = fortune.age + '岁';
-            document.getElementById('dayMasterValue').textContent = fortune.baZi.day;
-            document.getElementById('dayMasterWuXingValue').textContent = fortune.dayMasterWuXing;
-            document.getElementById('dayMasterStrengthValue').textContent = fortune.dayMasterStrength + '分';
+            // 详细报告
+            document.getElementById('basicInfo').textContent = report.基础信息;
+            document.getElementById('baziAnalysis').textContent = report.八字分析;
+            document.getElementById('wuxingAnalysis').textContent = report.五行分析;
+            document.getElementById('fortuneAnalysis').textContent = report.运势分析;
+            document.getElementById('wealthAnalysis').textContent = report.财运分析;
+            document.getElementById('careerAnalysis').textContent = report.事业分析;
+            document.getElementById('loveAnalysis').textContent = report.感情分析;
+            document.getElementById('healthAdvice').textContent = report.健康建议;
+            document.getElementById('monthlyFortune').textContent = report.逐月运势;
+            document.getElementById('improveAdvice').textContent = report.改运建议;
 
-            const analysisText = `你的八字为：${fortune.baZi.full}<br><br>` +
-                `日主（日干）为${fortune.baZi.day[0]}，属${fortune.dayMasterWuXing}性。<br><br>` +
-                (fortune.dayMasterStrength > 70 ? 
-                    `日主非常旺盛（强度${fortune.dayMasterStrength}分），说明你天生自信、行动力强、主见坚定。你是天生的领导者，具有很强的自我管理能力和执行力。` :
-                fortune.dayMasterStrength > 55 ?
-                    `日主相对旺盛（强度${fortune.dayMasterStrength}分），说明你具有良好的自我管理能力。你能够平衡工作和生活，具有健全的人格和稳定的心态。` :
-                fortune.dayMasterStrength > 40 ?
-                    `日主中等强度（强度${fortune.dayMasterStrength}分），说明你性格温和，容易适应环境。你需要依靠他人的帮助和支持，但同时具有良好的合作精神。` :
-                    `日主相对偏弱（强度${fortune.dayMasterStrength}分），说明你需要借助他人的力量来实现目标。你应该更多地寻求贵人相助，建立良好的人际关系网络。`);
-
-            document.getElementById('analysisText').innerHTML = analysisText;
-
-            // 改运建议
-            const adviceText = `
-                <strong>1. 五行调理</strong><br>
-                穿着宜选择与你日主五行相符的颜色，有助于增强运势。<br>
-                在办公桌和卧室摆放相应五行元素的装饰品，持续调理。<br><br>
-                
-                <strong>2. 方位调理</strong><br>
-                根据日主五行属性选择合适的居住和工作方位。<br>
-                日常活动和重要决策可以向吉利方位进行。<br><br>
-                
-                <strong>3. 习惯调理</strong><br>
-                早起和规律作息能增强运势，调整身体能量。<br>
-                定期运动和冥想能平衡五行，改善气场。<br>
-                施舍和行善能积累福报，改善财运。<br><br>
-                
-                <strong>4. 人际调理</strong><br>
-                结交志同道合的朋友，建立良好的人际关系。<br>
-                多参加社交活动，扩展人脉和机遇。<br>
-                寻找贵人相助来提升运势和事业发展。
-            `;
-            document.getElementById('adviceText').innerHTML = adviceText;
-
-            // 滚动到结果
-            setTimeout(() => {
-                document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            // 默认显示第一个tab
+            switchTab(null, 'tab-basic');
         }
 
         function switchTab(e, tabName) {
-            // 移除所有active类
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-            // 添加active类到点击的元素
-            e.target.classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            if (e) e.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
+            document.querySelector(`.tab-btn[onclick="switchTab(event, '${tabName}')"]`).classList.add('active');
         }
 
-        // 初始化
-        initializeSelects();
+        // 初始化日期选择
+        function initDays() {
+            const daySelect = document.getElementById('day');
+            daySelect.innerHTML = '';
+            const daysInMonth = new Date(document.getElementById('year').value, document.getElementById('month').value, 0).getDate();
+            for (let i = 1; i <= daysInMonth; i++) {
+                daySelect.innerHTML += `<option value="${i}">${i}日</option>`;
+            }
+        }
+        document.getElementById('year').addEventListener('change', initDays);
+        document.getElementById('month').addEventListener('change', initDays);
+        initDays();
+        document.getElementById('day').value = new Date().getDate();
     </script>
 </body>
 </html>
