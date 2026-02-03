@@ -157,13 +157,13 @@
         .share-buttons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .share-btn {
             flex: 1;
             padding: 15px;
-            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             color: white;
             border: none;
             border-radius: 12px;
@@ -179,7 +179,7 @@
 
         .share-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         .share-btn.download {
@@ -356,7 +356,7 @@
             display: block;
         }
 
-        /* 图片生成区域样式 */
+        /* 图片预览模态框 */
         #imagePreviewContainer {
             position: fixed;
             top: 0;
@@ -472,6 +472,9 @@
                 grid-template-columns: 1fr;
             }
             h1 { font-size: 42px; }
+            .share-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -561,6 +564,7 @@
                     <div id="cryptoCard">
                         <h3>币圈·土狗运势（今天适合打狗吗？）</h3>
                         <div id="cryptoAdvice"></div>
+                        <!-- 分享和图片生成按钮 -->
                         <div class="share-buttons">
                             <button class="share-btn" onclick="shareToWechat()">
                                 <span>📱</span>分享给好友
@@ -572,9 +576,59 @@
                     </div>
                 </div>
 
-                <!-- 其他标签页内容保持不变 -->
-                <!-- ... 原有的其他标签页内容 ... -->
+                <!-- 基础信息 -->
+                <div id="tab-basic" class="tab-content">
+                    <div class="result-card">
+                        <h3>八字排盘</h3>
+                        <div id="baziDisplay" class="bazi-display"></div>
+                    </div>
 
+                    <div class="result-card">
+                        <h3>五行分布</h3>
+                        <div id="wuxingGrid" class="wuxing-grid"></div>
+                    </div>
+                </div>
+
+                <!-- 运势指数 -->
+                <div id="tab-fortune" class="tab-content">
+                    <div class="result-card">
+                        <h3>综合运势指数</h3>
+                        <div class="fortune-bar-container">
+                            <div class="fortune-bar-label"><span>综合运势</span><span id="overallValue">0%</span></div>
+                            <div class="fortune-bar"><div id="overallBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        </div>
+                        <div class="fortune-bar-container">
+                            <div class="fortune-bar-label"><span>财运</span><span id="wealthValue">0%</span></div>
+                            <div class="fortune-bar"><div id="wealthBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        </div>
+                        <div class="fortune-bar-container">
+                            <div class="fortune-bar-label"><span>事业运</span><span id="careerValue">0%</span></div>
+                            <div class="fortune-bar"><div id="careerBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        </div>
+                        <div class="fortune-bar-container">
+                            <div class="fortune-bar-label"><span>感情运</span><span id="loveValue">0%</span></div>
+                            <div class="fortune-bar"><div id="loveBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        </div>
+                        <div class="fortune-bar-container">
+                            <div class="fortune-bar-label"><span>健康运</span><span id="healthValue">0%</span></div>
+                            <div class="fortune-bar"><div id="healthBar" class="fortune-bar-fill" style="width:0%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 详细报告 -->
+                <div id="tab-detail" class="tab-content">
+                    <div class="result-card"><h3>基础信息</h3><div id="basicInfo" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>八字分析</h3><div id="baziAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>五行分析</h3><div id="wuxingAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>综合运势</h3><div id="fortuneAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>财运分析</h3><div id="wealthAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>事业分析</h3><div id="careerAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>感情分析</h3><div id="loveAnalysis" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>健康建议</h3><div id="healthAdvice" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>逐月运势</h3><div id="monthlyFortune" class="analysis-text"></div></div>
+                    <div class="result-card"><h3>改运建议</h3><div id="improveAdvice" class="analysis-text"></div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -741,7 +795,6 @@
                 };
             }
 
-            // ... 原有的分析方法保持不变 ...
             generateBasicInfo(fortune) {
                 return `年龄：${fortune.age}岁\n性别：${fortune.gender === 'male' ? '男' : '女'}\n八字：${fortune.baZi.full}\n日主：${fortune.baZi.day}\n日主五行：${fortune.dayMasterWuXing}\n日主强弱：${fortune.dayMasterStrength}分`;
             }
